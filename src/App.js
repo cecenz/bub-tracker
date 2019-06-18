@@ -1,24 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import ActivityAdder from "./ActivityAdder";
+import { ThemeProvider } from "styled-components";
+import { yellow, blue, green, purple, pink } from "./themes";
+
+import "./globalStyles.css";
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        <h1>Today</h1>
       </header>
+      <div>
+        <ThemeProvider theme={yellow}>
+          <ActivityAdder />
+        </ThemeProvider>
+      </div>
+      {/* <Card theme={yellow} />
+      
+      <Card theme={blue} />
+      <Card theme={green} />
+      <Card theme={purple} />
+      <Card theme={pink} />       */}
     </div>
   );
 }
