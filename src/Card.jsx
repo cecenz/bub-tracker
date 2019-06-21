@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { ThemeProvider } from "styled-components";
+import { Link } from "react-router-dom";
 
 const StyledCard = styled.div`
   background-color: ${props => props.theme.color};
@@ -24,12 +25,14 @@ StyledCard.defaultProps = {
   }
 };
 
-const Card = ({ theme, title = "foobar" }) => {
+const Card = ({ theme, title, linkTo, setShowCards }) => {
   return (
     <ThemeProvider theme={theme}>
       <StyledCard>
-        <h2>{title}</h2>
-        <p>Here is a bunch of content for the button</p>
+        <Link to={linkTo} onClick={() => setShowCards(false)}>
+          <h2>{title}</h2>
+          <p>Here is a bunch of content for the button</p>
+        </Link>
       </StyledCard>
     </ThemeProvider>
   );

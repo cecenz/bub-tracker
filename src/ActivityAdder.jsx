@@ -67,6 +67,7 @@ const StyledActivityAdder = styled.div`
   padding: 1rem;
   border-top: 6px solid ${props => props.theme.color};
   border-radius: 3px;
+  margin: 1rem;
 `;
 
 const TextArea = styled.textarea`
