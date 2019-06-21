@@ -3,6 +3,39 @@ body {
   min-height: 100vh;
   height: 100%;
   font-family: "Montserrat", sans-serif;
-  padding: 1rem;
-  background-color: #f9f9f9;
+  /* background-color: #f9f9f9; */
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+h2 {
+  margin-bottom: 0.75rem;
+}
+
+.dialog-enter {
+  max-height: 0;
+}
+
+.dialog-enter-active {
+  overflow: hidden;
+  max-height: 500px;
+  transition: all 0.75s ease;
+}
+.dialog-exit {
+  max-height: 500px;
+}
+
+.dialog-exit-active {
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  height: auto;
+  overflow: hidden;
+  transition: all 0.75s ease;
 }
