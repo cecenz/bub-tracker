@@ -1,29 +1,48 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { Route } from "react-router-dom";
+import axios from "axios";
 import styled, { ThemeProvider } from "styled-components";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 import { yellow, blue, green, purple, pink } from "./themes";
-import Card from "./Card";
-import ActivityAdder from "./ActivityAdder";
 import { ReactComponent as NextIcon } from "./svg/next.svg";
 import { ReactComponent as BackIcon } from "./svg/back.svg";
 import { ReactComponent as PlusIcon } from "./svg/plus.svg";
+import { ReactComponent as HouseIcon } from "./svg/house.svg";
 
 import "./globalStyles.css";
 
-function App() {
+import Card from "./Card";
+import Nappy from "./Nappy/Nappy";
+import Sleep from "./Sleep/Sleep";
+
+function App({ history }) {
   const [isShowCards, setShowCards] = useState(false);
 
   const onClick = () => setShowCards(!isShowCards);
 
+  useEffect(() => {
+    // axios
+    //   .get("https://bub-tracker-758cd.firebaseio.com/activities.json")
+    //   .then(res => {
+    //     console.log(res.data);
+    //   });
+  });
+
   return (
     <Fragment>
       <Header>
-        <PlusIcon
-          onClick={() => onClick()}
-          style={{ width: "16px", height: "16px" }}
-        />
+        <HeaderIcons>
+          <PlusIcon
+            onClick={() => onClick()}
+            style={{ width: "16px", height: "16px", cursor: "pointer" }}
+          />
+          <HouseIcon
+            onClick={() => history.replace("/")}
+            style={{ width: "16px", height: "16px", cursor: "pointer" }}
+          />
+        </HeaderIcons>
+
         <TransitionGroup component={null}>
           {isShowCards && (
             <CSSTransition classNames="dialog" timeout={750}>
@@ -63,18 +82,24 @@ function App() {
           )}
         </TransitionGroup>
       </Header>
-      <DashboardHeader>
-        <BackIcon style={{ width: "16px", height: "16px" }} />
-        <h1>Today</h1>
-        <NextIcon style={{ width: "16px", height: "16px" }} />
-      </DashboardHeader>
 
+      <Route
+        exact
+        path="/"
+        component={() => (
+          <DashboardHeader>
+            <BackIcon style={{ width: "16px", height: "16px" }} />
+            <h1>Today</h1>
+            <NextIcon style={{ width: "16px", height: "16px" }} />
+          </DashboardHeader>
+        )}
+      />
       <Route
         exact
         path="/nappy"
         component={() => (
           <ThemeProvider theme={blue}>
-            <ActivityAdder />
+            <Nappy />
           </ThemeProvider>
         )}
       />
@@ -82,7 +107,7 @@ function App() {
         path="/feed"
         component={() => (
           <ThemeProvider theme={yellow}>
-            <ActivityAdder />
+            <Nappy />
           </ThemeProvider>
         )}
       />
@@ -90,7 +115,7 @@ function App() {
         path="/activity"
         component={() => (
           <ThemeProvider theme={green}>
-            <ActivityAdder />
+            <Nappy />
           </ThemeProvider>
         )}
       />
@@ -98,7 +123,7 @@ function App() {
         path="/sleep"
         component={() => (
           <ThemeProvider theme={purple}>
-            <ActivityAdder />
+            <Sleep />
           </ThemeProvider>
         )}
       />
@@ -106,7 +131,7 @@ function App() {
         path="/media"
         component={() => (
           <ThemeProvider theme={pink}>
-            <ActivityAdder />
+            <Nappy />
           </ThemeProvider>
         )}
       />
@@ -125,6 +150,11 @@ const Header = styled.div`
   padding: 1rem;
   background-color: #fff;
   box-shadow: 0 2px 12px 0 #eee;
+`;
+
+const HeaderIcons = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 const DashboardHeader = styled.div`

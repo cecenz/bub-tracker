@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { Formik, Form, Field } from "formik";
-import { RadioButtonGroup, RadioButton } from "./Fields";
 import styled from "styled-components";
-import format from "date-fns/format";
 
-const ActivityAdder = () => {
-  // const [activities, setActivities] = useState([]);
+import { formattedTimeNow } from "../common";
+
+import { RadioButtonGroup, RadioButton } from "../Fields";
+import ActivityCard from "../ActivityCard";
+
+const Nappy = () => {
   return (
-    <StyledActivityAdder>
-      <p>Time: {format(new Date(), "h:ma")}</p>
+    <ActivityCard>
+      <p>Time: {formattedTimeNow}</p>
       <Formik
         initialValues={{}}
         onSubmit={values => {
@@ -57,18 +59,9 @@ const ActivityAdder = () => {
           </Form>
         )}
       </Formik>
-    </StyledActivityAdder>
+    </ActivityCard>
   );
 };
-
-const StyledActivityAdder = styled.div`
-  background-color: #fff;
-  box-shadow: 0px 2px 12px #ddd;
-  padding: 1rem;
-  border-top: 6px solid ${props => props.theme.color};
-  border-radius: 3px;
-  margin: 1rem;
-`;
 
 const TextArea = styled.textarea`
   width: 100%;
@@ -93,4 +86,4 @@ const Button = styled.button`
   }
 `;
 
-export default ActivityAdder;
+export default Nappy;
