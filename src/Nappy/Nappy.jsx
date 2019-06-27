@@ -1,8 +1,9 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
+import axios from "axios";
 import styled from "styled-components";
 
-import { formattedTimeNow } from "../common";
+import { formattedTimeNow, databaseDate, createId } from "../common";
 
 import { RadioButtonGroup, RadioButton } from "../Fields";
 import ActivityCard from "../ActivityCard";
@@ -12,9 +13,21 @@ const Nappy = () => {
     <ActivityCard>
       <p>Time: {formattedTimeNow}</p>
       <Formik
-        initialValues={{}}
         onSubmit={values => {
-          console.log("values", values);
+          const activityId = createId();
+          const result = {
+            theme: "nappy",
+            nappy: values.nappy,
+            notes: values.nappyNotes
+          };
+          axios
+            .patch(
+              `https://bub-tracker-758cd.firebaseio.com/activities/${databaseDate}/${activityId}.json`,
+              result
+            )
+            .then(res => {
+              console.log(res.data);
+            });
         }}
       >
         {({ values, handleChange, isSubmitting }) => (

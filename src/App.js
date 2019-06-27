@@ -4,30 +4,34 @@ import axios from "axios";
 import styled, { ThemeProvider } from "styled-components";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
+import { databaseDate } from "./common";
+
 import { yellow, blue, green, purple, pink } from "./themes";
-import { ReactComponent as NextIcon } from "./svg/next.svg";
-import { ReactComponent as BackIcon } from "./svg/back.svg";
 import { ReactComponent as PlusIcon } from "./svg/plus.svg";
 import { ReactComponent as HouseIcon } from "./svg/house.svg";
 
 import "./globalStyles.css";
 
+import Dashboard from "./Dashboard";
 import Card from "./Card";
 import Nappy from "./Nappy/Nappy";
 import Sleep from "./Sleep/Sleep";
 
 function App({ history }) {
   const [isShowCards, setShowCards] = useState(false);
+  const [activities, setActivities] = useState([]);
 
   const onClick = () => setShowCards(!isShowCards);
 
   useEffect(() => {
-    // axios
-    //   .get("https://bub-tracker-758cd.firebaseio.com/activities.json")
-    //   .then(res => {
-    //     console.log(res.data);
-    //   });
-  });
+    axios
+      .get(
+        `https://bub-tracker-758cd.firebaseio.com/activities/${databaseDate}.json`
+      )
+      .then(res => {
+        setActivities([res.data]);
+      });
+  }, []);
 
   return (
     <Fragment>
@@ -86,20 +90,14 @@ function App({ history }) {
       <Route
         exact
         path="/"
-        component={() => (
-          <DashboardHeader>
-            <BackIcon style={{ width: "16px", height: "16px" }} />
-            <h1>Today</h1>
-            <NextIcon style={{ width: "16px", height: "16px" }} />
-          </DashboardHeader>
-        )}
+        component={() => <Dashboard activities={activities} />}
       />
       <Route
         exact
         path="/nappy"
         component={() => (
           <ThemeProvider theme={blue}>
-            <Nappy />
+            <Nappy history={history} />
           </ThemeProvider>
         )}
       />
@@ -123,7 +121,7 @@ function App({ history }) {
         path="/sleep"
         component={() => (
           <ThemeProvider theme={purple}>
-            <Sleep />
+            <Sleep history={history} />
           </ThemeProvider>
         )}
       />
@@ -155,13 +153,6 @@ const Header = styled.div`
 const HeaderIcons = styled.div`
   display: flex;
   justify-content: space-between;
-`;
-
-const DashboardHeader = styled.div`
-  padding: 1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 `;
 
 export default App;

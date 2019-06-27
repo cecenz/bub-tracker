@@ -3,6 +3,19 @@ import format from "date-fns/format";
 
 export const formattedTimeNow = format(new Date(), "h:ma");
 
+export const databaseDate = format(new Date(), "YYMMD");
+
+export const createId = () => {
+  var result = "";
+  var characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  var charactersLength = characters.length;
+  for (var i = 0; i < 6; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+};
+
 export const selectTime = (
   <>
     <option value="">Choose time</option>

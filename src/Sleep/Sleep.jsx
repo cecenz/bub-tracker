@@ -1,21 +1,59 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form, Field } from "formik";
+import axios from "axios";
 import styled from "styled-components";
-import distanceInWords from "date-fns/format";
-import { formattedTimeNow, selectTime } from "../common";
+import {
+  formattedTimeNow,
+  selectTime,
+  createId,
+  databaseDate
+} from "../common";
 
-import { RadioButtonGroup, RadioButton } from "../Fields";
 import ActivityCard from "../ActivityCard";
 
-const Nappy = () => {
-  // const startTime =
-  // const endTime
+const convertDuration = totalTime => {
+  const totalTimeDecimal = totalTime.toFixed(2).split(".");
+  const formattedTime = `${totalTimeDecimal[0]} hours, ${(
+    totalTimeDecimal[1] * 0.6
+  ).toString()} minutes`;
+  return formattedTime;
+};
+
+const Sleep = ({ history }) => {
+  const [totalTime, setTotalTime] = useState(false);
+  const handleTimeChange = (startTime, endTime) => {
+    const chosenStartTime = parseInt(startTime);
+    const chosenEndtartTime = parseInt(endTime);
+    const updatedTotalTime =
+      chosenStartTime > chosenEndtartTime
+        ? (86400 - chosenStartTime + chosenEndtartTime) / 3600
+        : (chosenEndtartTime - chosenStartTime) / 3600;
+
+    const convertedDuration = convertDuration(updatedTotalTime);
+    setTotalTime(convertedDuration);
+  };
+
   return (
     <ActivityCard>
       <Formik
         initialValues={{}}
         onSubmit={values => {
-          console.log("values", values);
+          const activityId = createId();
+          const result = {
+            theme: "sleep",
+            startTime: values.startTime,
+            endTime: values.endTime,
+            totalTime: values.totalTime,
+            sleepNotes: values.sleepNotes
+          };
+          axios
+            .patch(
+              `https://bub-tracker-758cd.firebaseio.com/activities/${databaseDate}/${activityId}.json`,
+              result
+            )
+            .then(res => {
+              history.replace("/");
+            });
         }}
       >
         {({ values, handleChange, isSubmitting }) => (
@@ -39,7 +77,7 @@ const Nappy = () => {
                   id="startTime"
                   name="startTime"
                   onChange={handleChange}
-                  values={values.startTime}
+                  value={values.startTime}
                 >
                   {selectTime}
                 </Select>
@@ -55,20 +93,18 @@ const Nappy = () => {
                   id="endTime"
                   name="endTime"
                   onChange={handleChange}
-                  values={values.endTime}
+                  value={values.endTime}
+                  onBlur={() =>
+                    handleTimeChange(values.startTime, values.endTime)
+                  }
                 >
                   {selectTime}
                 </Select>
               </div>
               <div />
             </div>
-            <label
-              htmlFor="total"
-              style={{ display: "block", marginBottom: "0.25rem" }}
-            >
-              Total Sleep
-            </label>
-            <input id="total" />
+            {totalTime && <p>Total sleep: {totalTime}</p>}
+            <label htmlFor="sleepNotes">Notes</label>
             <TextArea
               id="sleepNotes"
               name="sleepNotes"
@@ -76,9 +112,7 @@ const Nappy = () => {
               onChange={handleChange}
               values={values.sleepNotes}
             />
-
             {/* <Button>Save</Button> */}
-
             <Button type="submit" disabled={isSubmitting}>
               Complete Activity
             </Button>
@@ -130,4 +164,4 @@ const Select = styled.select`
   border-radius: 4px;
 `;
 
-export default Nappy;
+export default Sleep;
