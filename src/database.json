@@ -1,12 +1,31 @@
 {
-  "activities": {
-    "26062019": {
-      "sleep": {
-        "start": "",
-        "finish": "",
-        "totalTime": "",
-        "notes": ""
-      }
+    "activities": {
+        "2019-06-29": {
+            "a4gcbs": {
+                "theme": "sleep",
+                "startTime": "foobar",
+                "endTime": "foobar",
+                "totalTime": "foobar",
+                "sleepNotes": "foobar"
+            }
+        },
+        "2019-06-28": {
+            "cadvlk": {
+                "theme": "sleep",
+                "startTime": "aaa",
+                "endTime": "aaa",
+                "totalTime": "aaa",
+                "sleepNotes": "aaa"
+            }
+        },
+        "2019-06-27": {
+            "dfvkn1": {
+                "theme": "sleep",
+                "startTime": "bbb",
+                "endTime": "bbb",
+                "totalTime": "bbb",
+                "sleepNotes": "bbb"
+            }
+        }
     }
-  }
 }

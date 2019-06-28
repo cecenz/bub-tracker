@@ -1,10 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { Route } from 'react-router-dom'
-import axios from 'axios'
 import styled, { ThemeProvider } from 'styled-components'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
-
-import { databaseDate } from './common'
 
 import { yellow, blue, green, purple, pink } from './themes'
 import { ReactComponent as PlusIcon } from './svg/plus.svg'
@@ -19,20 +16,8 @@ import Sleep from './Sleep/Sleep'
 
 function App({ history }) {
     const [isShowCards, setShowCards] = useState(false)
-    const [activities, setActivities] = useState([])
 
     const onClick = () => setShowCards(!isShowCards)
-
-    useEffect(() => {
-        axios
-            .get(
-                `https://bub-tracker-758cd.firebaseio.com/activities/${databaseDate}.json`
-            )
-            .then(res => {
-                setActivities([res.data])
-            })
-    }, [])
-
     return (
         <Fragment>
             <Header>
@@ -95,11 +80,7 @@ function App({ history }) {
                 </TransitionGroup>
             </Header>
 
-            <Route
-                exact
-                path="/"
-                component={() => <Dashboard activities={activities} />}
-            />
+            <Route exact path="/" component={Dashboard} />
             <Route
                 exact
                 path="/nappy"
