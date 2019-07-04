@@ -12,9 +12,8 @@ import { ReactComponent as BackIcon } from './svg/back.svg'
 import ActivityCard from './ActivityCard'
 
 // Next Steps:
-//  1. Check for entries for everyday and display a message if there are none
-//  2. Create tabs for each theme, and list those by latest
-//  3. Customise each theme card and get displaying nicely
+//  - Create tabs for each theme, and list those by latest
+//  - Customise each theme card and get displaying nicely
 
 const Dashboard = () => {
     const [activities, setActivities] = useState([])
@@ -26,7 +25,9 @@ const Dashboard = () => {
                 `https://bub-tracker-758cd.firebaseio.com/activities/${activitiesDate}.json`
             )
             .then(res => {
-                return res.data && setActivities(Object.entries(res.data))
+                return res.data
+                    ? setActivities(Object.entries(res.data))
+                    : setActivities([])
             })
     }, [activitiesDate])
 
