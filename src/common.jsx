@@ -1,7 +1,7 @@
 import React from 'react'
 import format from 'date-fns/format'
 
-export const formattedTimeNow = format(new Date(), 'h:ma')
+export const timestamp = () => format(new Date(), 'HHmmss')
 
 export const formatToDatabaseDate = date =>
     date ? format(date, 'YYYY-MM-DD') : format(new Date(), 'YYYY-MM-DD')
@@ -11,18 +11,26 @@ export const parseToDate = dateToString => {
     return new Date(dateArray[0], dateArray[1] - 1, dateArray[2]).toDateString()
 }
 
-export const createId = () => {
-    let result = ''
-    const characters =
-        'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-    const charactersLength = characters.length
-    for (let i = 0; i < 6; i++) {
-        result += characters.charAt(
-            Math.floor(Math.random() * charactersLength)
-        )
-    }
-    return result
+export const sortByKey = (array, key) => {
+    return array.sort((a, b) => {
+        const x = a[key]
+        const y = b[key]
+        return x > y ? -1 : x < y ? 1 : 0
+    })
 }
+
+// export const createId = () => {
+//     let result = ''
+//     const characters =
+//         'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+//     const charactersLength = characters.length
+//     for (let i = 0; i < 6; i++) {
+//         result += characters.charAt(
+//             Math.floor(Math.random() * charactersLength)
+//         )
+//     }
+//     return result
+// }
 
 export const selectTime = (
     <>

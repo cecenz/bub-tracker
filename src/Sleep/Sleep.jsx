@@ -1,13 +1,8 @@
 import React, { useState } from 'react'
-import { Formik, Form, Field } from 'formik'
+import { Formik, Form } from 'formik'
 import axios from 'axios'
 import styled from 'styled-components'
-import {
-    formattedTimeNow,
-    selectTime,
-    createId,
-    formatToDatabaseDate,
-} from '../common'
+import { timestamp, selectTime, formatToDatabaseDate } from '../common'
 
 import ActivityCard from '../ActivityCard'
 
@@ -33,22 +28,23 @@ const Sleep = ({ history }) => {
         setTotalTime(convertedDuration)
     }
 
+    console.log('new date')
+
     return (
         <ActivityCard>
             <Formik
                 initialValues={{}}
                 onSubmit={values => {
-                    const activityId = createId()
                     const result = {
                         theme: 'sleep',
                         startTime: values.startTime,
                         endTime: values.endTime,
-                        totalTime: values.totalTime,
+                        totalTime,
                         sleepNotes: values.sleepNotes,
                     }
                     axios
                         .patch(
-                            `https://bub-tracker-758cd.firebaseio.com/activities/${formatToDatabaseDate()}/${activityId}.json`,
+                            `https://bub-tracker-758cd.firebaseio.com/activities/${formatToDatabaseDate()}/${timestamp()}/sleep.json`,
                             result
                         )
                         .then(res => {

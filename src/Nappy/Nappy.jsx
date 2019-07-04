@@ -3,18 +3,16 @@ import { Formik, Form, Field } from 'formik'
 import axios from 'axios'
 import styled from 'styled-components'
 
-import { formattedTimeNow, formatToDatabaseDate, createId } from '../common'
+import { timestamp, formatToDatabaseDate } from '../common'
 
 import { RadioButtonGroup, RadioButton } from '../Fields'
 import ActivityCard from '../ActivityCard'
 
-const Nappy = () => {
+const Nappy = ({ history }) => {
     return (
         <ActivityCard>
-            <p>Time: {formattedTimeNow}</p>
             <Formik
                 onSubmit={values => {
-                    const activityId = createId()
                     const result = {
                         theme: 'nappy',
                         nappy: values.nappy,
@@ -22,11 +20,11 @@ const Nappy = () => {
                     }
                     axios
                         .patch(
-                            `https://bub-tracker-758cd.firebaseio.com/activities/${formatToDatabaseDate()}/${activityId}.json`,
+                            `https://bub-tracker-758cd.firebaseio.com/activities/${formatToDatabaseDate()}/${timestamp()}/nappy.json`,
                             result
                         )
                         .then(res => {
-                            console.log(res.data)
+                            history.replace('/')
                         })
                 }}
             >

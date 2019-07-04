@@ -1,9 +1,9 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { Fragment, useState } from 'react'
 import { Route } from 'react-router-dom'
 import styled, { ThemeProvider } from 'styled-components'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
-import { yellow, blue, green, purple, pink } from './themes'
+import { nappy, green, sleep, pink } from './themes'
 import { ReactComponent as PlusIcon } from './svg/plus.svg'
 import { ReactComponent as HouseIcon } from './svg/house.svg'
 
@@ -48,31 +48,31 @@ function App({ history }) {
                                     setShowCards={setShowCards}
                                     linkTo="nappy"
                                     title="Nappy"
-                                    theme={blue}
+                                    theme={nappy}
                                 />
                                 <Card
                                     setShowCards={setShowCards}
                                     linkTo="feed"
                                     title="Feed"
-                                    theme={yellow}
+                                    theme={nappy}
                                 />
                                 <Card
                                     setShowCards={setShowCards}
                                     linkTo="activity"
                                     title="Activity"
-                                    theme={green}
+                                    theme={nappy}
                                 />
                                 <Card
                                     setShowCards={setShowCards}
                                     linkTo="sleep"
                                     title="Sleep"
-                                    theme={purple}
+                                    theme={sleep}
                                 />
                                 <Card
                                     setShowCards={setShowCards}
                                     linkTo="media"
                                     title="Media"
-                                    theme={pink}
+                                    theme={nappy}
                                 />
                             </ContentContainer>
                         </CSSTransition>
@@ -85,7 +85,7 @@ function App({ history }) {
                 exact
                 path="/nappy"
                 component={() => (
-                    <ThemeProvider theme={blue}>
+                    <ThemeProvider theme={nappy}>
                         <Nappy history={history} />
                     </ThemeProvider>
                 )}
@@ -93,7 +93,7 @@ function App({ history }) {
             <Route
                 path="/feed"
                 component={() => (
-                    <ThemeProvider theme={yellow}>
+                    <ThemeProvider theme={nappy}>
                         <Nappy />
                     </ThemeProvider>
                 )}
@@ -101,7 +101,7 @@ function App({ history }) {
             <Route
                 path="/activity"
                 component={() => (
-                    <ThemeProvider theme={green}>
+                    <ThemeProvider theme={nappy}>
                         <Nappy />
                     </ThemeProvider>
                 )}
@@ -109,7 +109,7 @@ function App({ history }) {
             <Route
                 path="/sleep"
                 component={() => (
-                    <ThemeProvider theme={purple}>
+                    <ThemeProvider theme={sleep}>
                         <Sleep history={history} />
                     </ThemeProvider>
                 )}
@@ -117,7 +117,7 @@ function App({ history }) {
             <Route
                 path="/media"
                 component={() => (
-                    <ThemeProvider theme={pink}>
+                    <ThemeProvider theme={nappy}>
                         <Nappy />
                     </ThemeProvider>
                 )}
