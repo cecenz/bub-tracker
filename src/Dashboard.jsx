@@ -3,6 +3,7 @@ import styled, { ThemeProvider } from 'styled-components'
 import axios from 'axios'
 import subDays from 'date-fns/sub_days'
 import addDays from 'date-fns/add_days'
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 
 import { formatToDatabaseDate, parseToDate, sortByKey } from './common'
 import { themeFinder } from './themes'
@@ -12,13 +13,12 @@ import { ReactComponent as BackIcon } from './svg/back.svg'
 import ActivityCard from './ActivityCard'
 
 // Next Steps:
-//  - Create tabs for each theme, and list those by latest
 //  - Customise each theme card and get displaying nicely
 
 const Dashboard = () => {
     const [activities, setActivities] = useState([])
     const [activitiesDate, setActivitiesDate] = useState(formatToDatabaseDate)
-
+    const [activitiesByTheme, setActivitiesByTheme] = useState({})
     useEffect(() => {
         axios
             .get(
@@ -30,6 +30,19 @@ const Dashboard = () => {
                     : setActivities([])
             })
     }, [activitiesDate])
+
+    useEffect(() => {
+        const nappyArray = []
+        const sleepArray = []
+        activities.map(timestamp =>
+            Object.entries(timestamp[1]).map(activityType =>
+                activityType[0] === 'nappy'
+                    ? nappyArray.push(activityType)
+                    : sleepArray.push(activityType)
+            )
+        )
+        setActivitiesByTheme({ nappy: nappyArray, sleep: sleepArray })
+    }, [activities])
 
     const handlePreviousDate = () =>
         setActivitiesDate(
@@ -54,43 +67,49 @@ const Dashboard = () => {
                     style={{ width: '16px', height: '16px' }}
                 />
             </DashboardHeader>
-
-            {sortByKey(activities, 0).map(timestamp =>
-                Object.entries(timestamp[1]).map(activityType => (
-                    <ThemeProvider
-                        theme={themeFinder(activityType[0])}
-                        key={activityType[0]}
-                    >
-                        <ActivityCard key={timestamp}>
-                            {Object.entries(activityType[1]).map(entry => (
-                                <p key={entry[1]}>
-                                    {entry[0]}: {entry[1]}
-                                </p>
-                            ))}
-                        </ActivityCard>
-                    </ThemeProvider>
-                ))
-            )}
-
-            {/* {activities.map(activityType => (
-                <ThemeProvider
-                    theme={themeFinder(activityType[0])}
-                    key={activityType[0]}
-                >
-                    <div>
-                        <h3>{activityType[0]}</h3>
-                        {Object.entries(activityType[1]).map(entry => (
-                            <ActivityCard>
-                                {Object.entries(entry[1]).map(item => (
-                                    <p>
-                                        {item[0]}: {item[1]}
-                                    </p>
-                                ))}
-                            </ActivityCard>
+            <Tabs>
+                <TabList>
+                    <Tab>All</Tab>
+                    {Object.entries(activitiesByTheme).map(activityType => (
+                        <Tab key={activityType[0]}>{activityType[0]}</Tab>
+                    ))}
+                </TabList>
+                <TabPanel>
+                    {sortByKey(activities, 0).map(timestamp =>
+                        Object.entries(timestamp[1]).map(activityType => (
+                            <ThemeProvider
+                                theme={themeFinder(activityType[0])}
+                                key={activityType[0]}
+                            >
+                                <ActivityCard key={timestamp}>
+                                    {Object.entries(activityType[1]).map(
+                                        entry => (
+                                            <p key={entry[1]}>
+                                                {entry[0]}: {entry[1]}
+                                            </p>
+                                        )
+                                    )}
+                                </ActivityCard>
+                            </ThemeProvider>
+                        ))
+                    )}
+                </TabPanel>
+                {Object.entries(activitiesByTheme).map(activityType => (
+                    <TabPanel key={activityType[0]}>
+                        {activityType[1].map(activity => (
+                            <ThemeProvider theme={themeFinder(activityType[0])}>
+                                <ActivityCard>
+                                    {Object.entries(activity[1]).map(entry => (
+                                        <p key={entry[1]}>
+                                            {entry[0]}: {entry[1]}
+                                        </p>
+                                    ))}
+                                </ActivityCard>
+                            </ThemeProvider>
                         ))}
-                    </div>
-                </ThemeProvider>
-            ))} */}
+                    </TabPanel>
+                ))}
+            </Tabs>
         </div>
     )
 }

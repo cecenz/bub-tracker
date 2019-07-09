@@ -3,7 +3,8 @@ import { Route } from 'react-router-dom'
 import styled, { ThemeProvider } from 'styled-components'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
-import { nappy, green, sleep, pink } from './themes'
+import { nappy, sleep } from './themes'
+// import { nappy, green, sleep, pink } from './themes'
 import { ReactComponent as PlusIcon } from './svg/plus.svg'
 import { ReactComponent as HouseIcon } from './svg/house.svg'
 
