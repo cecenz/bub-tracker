@@ -4,7 +4,7 @@ import axios from 'axios'
 import styled from 'styled-components'
 import { timestamp, selectTime, formatToDatabaseDate } from '../common'
 
-import ActivityCard from '../ActivityCard'
+import ActivityCardWrapper from '../ActivityCardWrapper'
 
 const convertDuration = totalTime => {
     const totalTimeDecimal = totalTime.toFixed(2).split('.')
@@ -31,7 +31,7 @@ const Sleep = ({ history }) => {
     console.log('new date')
 
     return (
-        <ActivityCard>
+        <ActivityCardWrapper>
             <Formik
                 initialValues={{}}
                 onSubmit={values => {
@@ -124,7 +124,7 @@ const Sleep = ({ history }) => {
                     </Form>
                 )}
             </Formik>
-        </ActivityCard>
+        </ActivityCardWrapper>
     )
 }
 

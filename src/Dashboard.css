@@ -1,0 +1,21 @@
+/* .react-tabs__tab-panel__container {
+    background: white;
+    margin: 0 20px;
+    padding: 10px;
+    border-radius: 0 4px 4px 4px;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+} */
+
+.react-tabs__tab {
+    margin-right: 10px;
+}
+
+.react-tabs__tab-list {
+    list-style: none;
+    margin: 0 20px;
+    padding: 0;
+    display: flex;
+}

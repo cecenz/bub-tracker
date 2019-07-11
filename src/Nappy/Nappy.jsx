@@ -6,11 +6,11 @@ import styled from 'styled-components'
 import { timestamp, formatToDatabaseDate } from '../common'
 
 import { RadioButtonGroup, RadioButton } from '../Fields'
-import ActivityCard from '../ActivityCard'
+import ActivityCardWrapper from '../ActivityCardWrapper'
 
 const Nappy = ({ history }) => {
     return (
-        <ActivityCard>
+        <ActivityCardWrapper>
             <Formik
                 onSubmit={values => {
                     const result = {
@@ -70,7 +70,7 @@ const Nappy = ({ history }) => {
                     </Form>
                 )}
             </Formik>
-        </ActivityCard>
+        </ActivityCardWrapper>
     )
 }
 
