@@ -3,15 +3,14 @@ import { Route } from 'react-router-dom'
 import styled, { ThemeProvider } from 'styled-components'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
-import { nappy, sleep } from './themes'
-// import { nappy, green, sleep, pink } from './themes'
+import { nappy, activity, sleep, media, feed } from './themes'
 import { ReactComponent as PlusIcon } from './svg/plus.svg'
 import { ReactComponent as HouseIcon } from './svg/house.svg'
 
 import './globalStyles.css'
 
 import Dashboard from './Dashboard'
-import Card from './Card'
+import ActivityAdder from './ActivityAdder'
 import Nappy from './Nappy/Nappy'
 import Sleep from './Sleep/Sleep'
 
@@ -45,35 +44,35 @@ function App({ history }) {
                     {isShowCards && (
                         <CSSTransition classNames="dialog" timeout={750}>
                             <ContentContainer>
-                                <Card
+                                <ActivityAdder
                                     setShowCards={setShowCards}
                                     linkTo="nappy"
                                     title="Nappy"
                                     theme={nappy}
                                 />
-                                <Card
+                                <ActivityAdder
                                     setShowCards={setShowCards}
                                     linkTo="feed"
                                     title="Feed"
-                                    theme={nappy}
+                                    theme={feed}
                                 />
-                                <Card
+                                <ActivityAdder
                                     setShowCards={setShowCards}
                                     linkTo="activity"
                                     title="Activity"
-                                    theme={nappy}
+                                    theme={activity}
                                 />
-                                <Card
+                                <ActivityAdder
                                     setShowCards={setShowCards}
                                     linkTo="sleep"
                                     title="Sleep"
                                     theme={sleep}
                                 />
-                                <Card
+                                <ActivityAdder
                                     setShowCards={setShowCards}
                                     linkTo="media"
                                     title="Media"
-                                    theme={nappy}
+                                    theme={media}
                                 />
                             </ContentContainer>
                         </CSSTransition>
@@ -128,10 +127,8 @@ function App({ history }) {
 }
 
 const ContentContainer = styled.div`
-    /* padding: 0 1rem; */
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-column-gap: 1rem;
+    display: flex;
+    justify-content: space-between;
 `
 
 const Header = styled.div`

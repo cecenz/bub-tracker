@@ -4,22 +4,22 @@ export const feed = {
     shadow: '#E9E178',
 }
 
-export const green = {
+export const activity = {
     color: '#B7E3C0',
     highlight: '#BCE8C5',
 }
 
-export const nappy = {
+export const media = {
     color: '#B8D0DD',
     highlight: '#BDD5E2',
 }
 
-export const sleep = {
+export const nappy = {
     color: '#DBBAE5',
     highlight: '#E0BFEA',
 }
 
-export const pink = {
+export const sleep = {
     color: '#F39DD4',
     highlight: '#F8A2D9',
 }

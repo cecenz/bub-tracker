@@ -1,21 +1,23 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react'
 import { Formik, Form, Field } from 'formik'
 import axios from 'axios'
 import styled from 'styled-components'
 
-import { timestamp, formatToDatabaseDate } from '../common'
+import { timestamp, displayDate, formatToDatabaseDate } from '../common'
 
 import { RadioButtonGroup, RadioButton } from '../Fields'
-import ActivityCardWrapper from '../ActivityCardWrapper'
+import Card from '../Card'
 
 const Nappy = ({ history }) => {
     return (
-        <ActivityCardWrapper>
+        <Card>
             <Formik
                 onSubmit={values => {
                     const result = {
                         theme: 'nappy',
                         nappy: values.nappy,
+                        time: displayDate(new Date()),
                         notes: values.nappyNotes,
                     }
                     axios
@@ -38,12 +40,6 @@ const Nappy = ({ history }) => {
                             <Field
                                 component={RadioButton}
                                 name="nappy"
-                                id="dry"
-                                label="Dry"
-                            />
-                            <Field
-                                component={RadioButton}
-                                name="nappy"
                                 id="wet"
                                 label="Wet"
                             />
@@ -52,6 +48,18 @@ const Nappy = ({ history }) => {
                                 name="nappy"
                                 id="soiled"
                                 label="Soiled"
+                            />
+                            <Field
+                                component={RadioButton}
+                                name="nappy"
+                                id="dry"
+                                label="Dry"
+                            />
+                            <Field
+                                component={RadioButton}
+                                name="nappy"
+                                id="mixed"
+                                label="Mixed"
                             />
                         </RadioButtonGroup>
 
@@ -70,7 +78,7 @@ const Nappy = ({ history }) => {
                     </Form>
                 )}
             </Formik>
-        </ActivityCardWrapper>
+        </Card>
     )
 }
 

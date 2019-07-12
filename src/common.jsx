@@ -1,10 +1,20 @@
 import React from 'react'
 import format from 'date-fns/format'
 
+import { ReactComponent as Activity } from './svg/activity.svg'
+import { ReactComponent as SleepIcon } from './svg/sleep.svg'
+import { ReactComponent as FeedIcon } from './svg/feedBottle.svg'
+import { ReactComponent as Media } from './svg/camera.svg'
+import { ReactComponent as NappyIcon } from './svg/nappy.svg'
+import { ReactComponent as BabyIcon } from './svg/baby-girl.svg'
+
 export const timestamp = () => format(new Date(), 'HHmmss')
 
 export const formatToDatabaseDate = date =>
     date ? format(date, 'YYYY-MM-DD') : format(new Date(), 'YYYY-MM-DD')
+
+export const displayDate = date =>
+    date ? format(date, 'h:m a') : format(new Date(), 'h:m a')
 
 export const parseToDate = dateToString => {
     const dateArray = dateToString.split('-')
@@ -19,18 +29,31 @@ export const sortByKey = (array, key) => {
     })
 }
 
-// export const createId = () => {
-//     let result = ''
-//     const characters =
-//         'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
-//     const charactersLength = characters.length
-//     for (let i = 0; i < 6; i++) {
-//         result += characters.charAt(
-//             Math.floor(Math.random() * charactersLength)
-//         )
-//     }
-//     return result
-// }
+export const iconTheme = (theme, styles) => {
+    let icon
+    switch (theme.toLowerCase()) {
+        case 'nappy':
+            icon = <NappyIcon style={styles} />
+            break
+        case 'sleep':
+            icon = <SleepIcon style={styles} />
+            break
+        case 'feed':
+            icon = <FeedIcon style={styles} />
+            break
+        case 'activity':
+            icon = <Activity style={styles} />
+            break
+        case 'media':
+            icon = <Media style={styles} />
+            break
+        default:
+            icon = <BabyIcon style={{ width: '16px', height: '16px' }} />
+            break
+    }
+
+    return icon
+}
 
 export const selectTime = (
     <>

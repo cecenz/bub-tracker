@@ -4,7 +4,7 @@ import axios from 'axios'
 import styled from 'styled-components'
 import { timestamp, selectTime, formatToDatabaseDate } from '../common'
 
-import ActivityCardWrapper from '../ActivityCardWrapper'
+import Card from '../Card'
 
 const convertDuration = totalTime => {
     const totalTimeDecimal = totalTime.toFixed(2).split('.')
@@ -12,6 +12,17 @@ const convertDuration = totalTime => {
         totalTimeDecimal[1] * 0.6
     ).toString()} minutes`
     return formattedTime
+}
+function SecondsToHours(timeInSeconds) {
+    const pad = (num, size) => {
+        return `000${num}`.slice(size * -1)
+    }
+    const time = parseFloat(timeInSeconds).toFixed(3)
+    const hours = Math.floor(time / 60 / 60)
+    const hoursSuffix = hours >= 12 ? 'pm' : 'am'
+    const minutes = Math.floor(time / 60) % 60
+
+    return `${pad(hours, 2)}:${pad(minutes, 2)} ${hoursSuffix}`
 }
 
 const Sleep = ({ history }) => {
@@ -28,17 +39,15 @@ const Sleep = ({ history }) => {
         setTotalTime(convertedDuration)
     }
 
-    console.log('new date')
-
     return (
-        <ActivityCardWrapper>
+        <Card>
             <Formik
                 initialValues={{}}
                 onSubmit={values => {
                     const result = {
                         theme: 'sleep',
-                        startTime: values.startTime,
-                        endTime: values.endTime,
+                        startTime: SecondsToHours(values.startTime),
+                        endTime: SecondsToHours(values.endTime),
                         totalTime,
                         sleepNotes: values.sleepNotes,
                     }
@@ -117,14 +126,13 @@ const Sleep = ({ history }) => {
                             onChange={handleChange}
                             values={values.sleepNotes}
                         />
-                        {/* <Button>Save</Button> */}
                         <Button type="submit" disabled={isSubmitting}>
                             Complete Activity
                         </Button>
                     </Form>
                 )}
             </Formik>
-        </ActivityCardWrapper>
+        </Card>
     )
 }
 

@@ -5,19 +5,21 @@ import subDays from 'date-fns/sub_days'
 import addDays from 'date-fns/add_days'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 
-import { formatToDatabaseDate, parseToDate, sortByKey } from './common'
+import {
+    formatToDatabaseDate,
+    parseToDate,
+    sortByKey,
+    iconTheme,
+} from './common'
 import { themeFinder } from './themes'
 
 import { ReactComponent as NextIcon } from './svg/next.svg'
 import { ReactComponent as BackIcon } from './svg/back.svg'
 import { ReactComponent as BabyIcon } from './svg/baby-girl.svg'
-import { ReactComponent as nappyIcon } from './svg/nappy.svg'
-import ActivityCardWrapper from './ActivityCardWrapper'
+
+import ActivityCard from './ActivityCard/ActivityCard'
 
 import './Dashboard.css'
-
-// Next Steps:
-//  - Customise each theme card and get displaying nicely
 
 const Dashboard = () => {
     const [activities, setActivities] = useState([])
@@ -58,8 +60,6 @@ const Dashboard = () => {
             formatToDatabaseDate(addDays(parseToDate(activitiesDate), 1))
         )
 
-    //
-
     return (
         <div>
             <DashboardHeader>
@@ -76,12 +76,14 @@ const Dashboard = () => {
             <Tabs>
                 <TabList>
                     <Tab>
-                        <BabyIcon style={{ width: '16px', height: '16px' }} />
+                        <BabyIcon style={{ width: '32px', height: '32px' }} />
                     </Tab>
                     {Object.entries(activitiesByTheme).map(activityType => (
                         <Tab key={activityType[0]}>
-                            <p>{activityType[0]}</p>
-                            {/* <Icon symbol={activityType[0]} /> */}
+                            {iconTheme(activityType[0], {
+                                width: '32px',
+                                height: '32px',
+                            })}
                         </Tab>
                     ))}
                 </TabList>
@@ -93,15 +95,10 @@ const Dashboard = () => {
                                     theme={themeFinder(activityType[0])}
                                     key={activityType[0]}
                                 >
-                                    <ActivityCardWrapper key={timestamp}>
-                                        {Object.entries(activityType[1]).map(
-                                            entry => (
-                                                <p key={entry[1]}>
-                                                    {entry[0]}: {entry[1]}
-                                                </p>
-                                            )
-                                        )}
-                                    </ActivityCardWrapper>
+                                    <ActivityCard
+                                        key={timestamp}
+                                        content={activityType[1]}
+                                    />
                                 </ThemeProvider>
                             ))
                         )}
@@ -114,15 +111,7 @@ const Dashboard = () => {
                                     key={activityType[0]}
                                     theme={themeFinder(activityType[0])}
                                 >
-                                    <ActivityCardWrapper>
-                                        {Object.entries(activity[1]).map(
-                                            entry => (
-                                                <p key={entry[1]}>
-                                                    {entry[0]}: {entry[1]}
-                                                </p>
-                                            )
-                                        )}
-                                    </ActivityCardWrapper>
+                                    <ActivityCard content={activity[1]} />
                                 </ThemeProvider>
                             ))}
                         </TabPanel>
