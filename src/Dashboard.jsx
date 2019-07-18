@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
+import { useSelector, connect } from 'react-redux'
 import axios from 'axios'
 import subDays from 'date-fns/sub_days'
 import addDays from 'date-fns/add_days'
@@ -22,46 +23,23 @@ import ActivityCard from './ActivityCard/ActivityCard'
 import './Dashboard.css'
 
 const Dashboard = () => {
-    const [activities, setActivities] = useState([])
+    const [activities, setActivities] = useState(
+        useSelector(state => state.activity.activities)
+    )
+    console.log('activities', activities)
     const [activitiesDate, setActivitiesDate] = useState(formatToDatabaseDate)
-    const [activitiesByTheme, setActivitiesByTheme] = useState({})
-    useEffect(() => {
-        axios
-            .get(
-                `https://bub-tracker-758cd.firebaseio.com/activities/${activitiesDate}.json`
-            )
-            .then(res => {
-                return res.data
-                    ? setActivities(Object.entries(res.data))
-                    : setActivities([])
-            })
-    }, [activitiesDate])
-
-    useEffect(() => {
-        const nappyArray = []
-        const sleepArray = []
-        activities.map(timestamp =>
-            Object.entries(timestamp[1]).map(activityType =>
-                activityType[0] === 'nappy'
-                    ? nappyArray.push(activityType)
-                    : sleepArray.push(activityType)
-            )
-        )
-        setActivitiesByTheme({ nappy: nappyArray, sleep: sleepArray })
-    }, [activities])
 
     const handlePreviousDate = () =>
         setActivitiesDate(
-            formatToDatabaseDate(subDays(parseToDate(activitiesDate), 1))
+            formatToDatabaseDate(subDays(parseToDate(activities.date), 1))
         )
 
     const handleNextDate = () =>
         setActivitiesDate(
-            formatToDatabaseDate(addDays(parseToDate(activitiesDate), 1))
+            formatToDatabaseDate(addDays(parseToDate(activities.date), 1))
         )
-
     return (
-        <div>
+        <>
             <DashboardHeader>
                 <BackIcon
                     onClick={handlePreviousDate}
@@ -73,52 +51,17 @@ const Dashboard = () => {
                     style={{ width: '16px', height: '16px' }}
                 />
             </DashboardHeader>
-            <Tabs>
-                <TabList>
-                    <Tab>
-                        <BabyIcon style={{ width: '32px', height: '32px' }} />
-                    </Tab>
-                    {Object.entries(activitiesByTheme).map(activityType => (
-                        <Tab key={activityType[0]}>
-                            {iconTheme(activityType[0], {
-                                width: '32px',
-                                height: '32px',
-                            })}
-                        </Tab>
-                    ))}
-                </TabList>
-                <div className="react-tabs__tab-panel__container">
-                    <TabPanel>
-                        {sortByKey(activities, 0).map(timestamp =>
-                            Object.entries(timestamp[1]).map(activityType => (
-                                <ThemeProvider
-                                    theme={themeFinder(activityType[0])}
-                                    key={activityType[0]}
-                                >
-                                    <ActivityCard
-                                        key={timestamp}
-                                        content={activityType[1]}
-                                    />
-                                </ThemeProvider>
-                            ))
-                        )}
-                    </TabPanel>
-
-                    {Object.entries(activitiesByTheme).map(activityType => (
-                        <TabPanel key={activityType[0]}>
-                            {activityType[1].map(activity => (
-                                <ThemeProvider
-                                    key={activityType[0]}
-                                    theme={themeFinder(activityType[0])}
-                                >
-                                    <ActivityCard content={activity[1]} />
-                                </ThemeProvider>
-                            ))}
-                        </TabPanel>
-                    ))}
-                </div>
-            </Tabs>
-        </div>
+            <div>
+                {activities.map(activity => (
+                    <ThemeProvider
+                        key={activity.activityInfo.timeStamp}
+                        theme={themeFinder(activity.type)}
+                    >
+                        <ActivityCard content={activity} />
+                    </ThemeProvider>
+                ))}
+            </div>
+        </>
     )
 }
 

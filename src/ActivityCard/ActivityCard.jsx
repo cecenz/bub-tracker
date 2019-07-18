@@ -7,12 +7,11 @@ const NappyInfo = ({ content }) => {
     return (
         <StyledActivityCard>
             <ActivityIcon>
-                {iconTheme(content.theme, { width: '24px', height: '24px' })}
+                {iconTheme(content.type, { width: '24px', height: '24px' })}
             </ActivityIcon>
             <ActivityContent>
-                <p>{content.time}</p>
-                <p>{content.nappy}</p>
-                <p>{content.sleepNotes}</p>
+                <p>{content.activityInfo.nappy}</p>
+                <p>{content.activityInfo.notes}</p>
             </ActivityContent>
         </StyledActivityCard>
     )
@@ -22,14 +21,14 @@ const SleepInfo = ({ content }) => {
     return (
         <StyledActivityCard>
             <ActivityIcon>
-                {iconTheme(content.theme, { width: '24px', height: '24px' })}
+                {iconTheme(content.type, { width: '24px', height: '24px' })}
             </ActivityIcon>
             <ActivityContent>
                 <p>
                     {content.startTime} - {content.endTime}
                 </p>
                 <p>{content.totalTime}</p>
-                <p>{content.sleepNotes}</p>
+                <p>{content.notes}</p>
             </ActivityContent>
         </StyledActivityCard>
     )
@@ -37,7 +36,7 @@ const SleepInfo = ({ content }) => {
 
 const ActivityCard = ({ content }) => {
     let component
-    switch (content.theme) {
+    switch (content.type) {
         case 'sleep':
             component = <SleepInfo content={content} />
             break
