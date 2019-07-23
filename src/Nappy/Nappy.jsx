@@ -1,34 +1,36 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react'
+import { useDispatch } from 'react-redux'
 import { Formik, Form, Field } from 'formik'
-import axios from 'axios'
 import styled from 'styled-components'
+import { createActivity } from './store/actions'
 
-import { timestamp, displayDate, formatToDatabaseDate } from '../common'
+import { timestamp, displayTime, formatToDatabaseDate } from '../common'
 
 import { RadioButtonGroup, RadioButton } from '../Fields'
 import Card from '../Card'
 
 const Nappy = ({ history }) => {
+    const dispatch = useDispatch()
+    const addActivity = activity => {
+        console.log('activity', activity)
+        dispatch(createActivity(activity))
+    }
     return (
         <Card>
             <Formik
-                onSubmit={values => {
-                    const result = {
-                        theme: 'nappy',
-                        nappy: values.nappy,
-                        time: displayDate(new Date()),
-                        notes: values.nappyNotes,
-                    }
-                    axios
-                        .patch(
-                            `https://bub-tracker-758cd.firebaseio.com/activities/${formatToDatabaseDate()}/${timestamp()}/nappy.json`,
-                            result
-                        )
-                        .then(res => {
-                            history.replace('/')
-                        })
-                }}
+                onSubmit={values =>
+                    addActivity({
+                        date: formatToDatabaseDate(new Date()),
+                        type: 'nappy',
+                        id: timestamp(new Date()),
+                        activityInfo: {
+                            time: displayTime(new Date()),
+                            nappy: values.nappy,
+                            notes: values.nappyNotes,
+                        },
+                    })
+                }
             >
                 {({ values, handleChange, isSubmitting }) => (
                     <Form>

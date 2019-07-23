@@ -1,42 +1,40 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
-import { useSelector, connect } from 'react-redux'
-import axios from 'axios'
+import { useSelector } from 'react-redux'
 import subDays from 'date-fns/sub_days'
 import addDays from 'date-fns/add_days'
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
 
-import {
-    formatToDatabaseDate,
-    parseToDate,
-    sortByKey,
-    iconTheme,
-} from './common'
+import { formatToDatabaseDate, parseToDate } from './common'
 import { themeFinder } from './themes'
 
 import { ReactComponent as NextIcon } from './svg/next.svg'
 import { ReactComponent as BackIcon } from './svg/back.svg'
-import { ReactComponent as BabyIcon } from './svg/baby-girl.svg'
 
 import ActivityCard from './ActivityCard/ActivityCard'
 
 import './Dashboard.css'
 
 const Dashboard = () => {
-    const [activities, setActivities] = useState(
-        useSelector(state => state.activity.activities)
-    )
-    console.log('activities', activities)
+    const activities = useSelector(state => state.nappy.activities)
     const [activitiesDate, setActivitiesDate] = useState(formatToDatabaseDate)
+    const [activitiesByDate, setActivitiesByDate] = useState(
+        activities.filter(activity => activity.date === activitiesDate)
+    )
+
+    useEffect(() => {
+        setActivitiesByDate(
+            activities.filter(activity => activity.date === activitiesDate)
+        )
+    }, [activitiesDate])
 
     const handlePreviousDate = () =>
         setActivitiesDate(
-            formatToDatabaseDate(subDays(parseToDate(activities.date), 1))
+            formatToDatabaseDate(subDays(parseToDate(activitiesDate), 1))
         )
 
     const handleNextDate = () =>
         setActivitiesDate(
-            formatToDatabaseDate(addDays(parseToDate(activities.date), 1))
+            formatToDatabaseDate(addDays(parseToDate(activitiesDate), 1))
         )
     return (
         <>
@@ -52,14 +50,15 @@ const Dashboard = () => {
                 />
             </DashboardHeader>
             <div>
-                {activities.map(activity => (
-                    <ThemeProvider
-                        key={activity.activityInfo.timeStamp}
-                        theme={themeFinder(activity.type)}
-                    >
-                        <ActivityCard content={activity} />
-                    </ThemeProvider>
-                ))}
+                {activitiesByDate &&
+                    activitiesByDate.map(activity => (
+                        <ThemeProvider
+                            key={activity.activityInfo.timestamp}
+                            theme={themeFinder(activity.type)}
+                        >
+                            <ActivityCard content={activity} />
+                        </ThemeProvider>
+                    ))}
             </div>
         </>
     )
