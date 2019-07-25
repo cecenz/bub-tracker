@@ -17,7 +17,7 @@ import './Dashboard.css'
 
 const Dashboard = () => {
     const activities = useSelector(state => {
-        console.log('state', state)
+        console.log('state', state.firestore.ordered.nappy)
         return state.nappy.activities
     })
     const [activitiesDate, setActivitiesDate] = useState(formatToDatabaseDate)

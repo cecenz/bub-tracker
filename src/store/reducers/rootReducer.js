@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux'
-import { fireStoreReducer } from 'redux-firestore'
+import { firestoreReducer } from 'redux-firestore'
 import authReducer from './authReducer'
 import nappyReducer from '../../Nappy/store/reducer'
 
 const rootReducer = combineReducers({
+    firestore: firestoreReducer,
     auth: authReducer,
     nappy: nappyReducer,
-    firestore: fireStoreReducer,
 })
 
 export default rootReducer
