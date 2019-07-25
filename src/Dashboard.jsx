@@ -3,6 +3,7 @@ import styled, { ThemeProvider } from 'styled-components'
 import { useSelector } from 'react-redux'
 import subDays from 'date-fns/sub_days'
 import addDays from 'date-fns/add_days'
+import { firestoreConnect } from 'react-redux-firebase'
 
 import { formatToDatabaseDate, parseToDate } from './common'
 import { themeFinder } from './themes'
@@ -15,7 +16,10 @@ import ActivityCard from './ActivityCard/ActivityCard'
 import './Dashboard.css'
 
 const Dashboard = () => {
-    const activities = useSelector(state => state.nappy.activities)
+    const activities = useSelector(state => {
+        console.log('state', state)
+        return state.nappy.activities
+    })
     const [activitiesDate, setActivitiesDate] = useState(formatToDatabaseDate)
     const [activitiesByDate, setActivitiesByDate] = useState(
         activities.filter(activity => activity.date === activitiesDate)
@@ -71,4 +75,4 @@ const DashboardHeader = styled.div`
     align-items: center;
 `
 
-export default Dashboard
+export default firestoreConnect(['nappy'])(Dashboard)

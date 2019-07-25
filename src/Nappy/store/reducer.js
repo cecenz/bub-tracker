@@ -1,7 +1,7 @@
 const initState = {
     activities: [
         {
-            date: '2019-07-23',
+            date: '2019-07-26',
             type: 'nappy',
             id: '123000',
             activityInfo: {
@@ -11,7 +11,7 @@ const initState = {
             },
         },
         {
-            date: '2019-07-23',
+            date: '2019-07-25',
             type: 'nappy',
             id: '123030',
             activityInfo: {
@@ -21,7 +21,7 @@ const initState = {
             },
         },
         {
-            date: '2019-07-22',
+            date: '2019-07-24',
             type: 'nappy',
             id: '153100',
             activityInfo: {
@@ -31,7 +31,7 @@ const initState = {
             },
         },
         {
-            date: '2019-07-21',
+            date: '2019-07-24',
             type: 'nappy',
             id: '123107',
             activityInfo: {
@@ -41,7 +41,7 @@ const initState = {
             },
         },
         {
-            date: '2019-06-28',
+            date: '2019-06-24',
             type: 'nappy',
             id: '123900',
             activityInfo: {

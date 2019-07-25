@@ -5,31 +5,26 @@ import { Formik, Form, Field } from 'formik'
 import styled from 'styled-components'
 import { createActivity } from './store/actions'
 
-import { timestamp, displayTime, formatToDatabaseDate } from '../common'
+import { displayTime, formatToDatabaseDate } from '../common'
 
 import { RadioButtonGroup, RadioButton } from '../Fields'
 import Card from '../Card'
 
 const Nappy = ({ history }) => {
     const dispatch = useDispatch()
-    const addActivity = activity => {
-        console.log('activity', activity)
-        dispatch(createActivity(activity))
-    }
     return (
         <Card>
             <Formik
                 onSubmit={values =>
-                    addActivity({
-                        date: formatToDatabaseDate(new Date()),
-                        type: 'nappy',
-                        id: timestamp(new Date()),
-                        activityInfo: {
-                            time: displayTime(new Date()),
+                    dispatch(
+                        createActivity({
+                            date: formatToDatabaseDate(new Date()),
                             nappy: values.nappy,
-                            notes: values.nappyNotes,
-                        },
-                    })
+                            notes: values.nappyNotes ? values.nappyNotes : '',
+                            type: 'nappy',
+                            time: displayTime(new Date()),
+                        })
+                    )
                 }
             >
                 {({ values, handleChange, isSubmitting }) => (

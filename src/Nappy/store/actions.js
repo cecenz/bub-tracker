@@ -1,6 +1,6 @@
+/* eslint-disable import/prefer-default-export */
 export const createActivity = activity => {
-    return (dispatch, getState, { getFirebase, getFirestore }) => {
-        console.log(activity)
+    return (dispatch, getState, { getFirestore }) => {
         const firestore = getFirestore()
         firestore
             .collection('nappy')
