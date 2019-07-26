@@ -16,20 +16,16 @@ import ActivityCard from './ActivityCard/ActivityCard'
 import './Dashboard.css'
 
 const Dashboard = () => {
-    const activities = useSelector(state => {
-        console.log('state', state.firestore.ordered.nappy)
-        return state.nappy.activities
-    })
+    const activities = useSelector(state => state.firestore.ordered.nappy)
     const [activitiesDate, setActivitiesDate] = useState(formatToDatabaseDate)
-    const [activitiesByDate, setActivitiesByDate] = useState(
-        activities.filter(activity => activity.date === activitiesDate)
-    )
+    const [activitiesByDate, setActivitiesByDate] = useState()
 
     useEffect(() => {
         setActivitiesByDate(
-            activities.filter(activity => activity.date === activitiesDate)
+            activities &&
+                activities.filter(activity => activity.date === activitiesDate)
         )
-    }, [activitiesDate])
+    }, [activities, activitiesDate])
 
     const handlePreviousDate = () =>
         setActivitiesDate(
@@ -40,6 +36,7 @@ const Dashboard = () => {
         setActivitiesDate(
             formatToDatabaseDate(addDays(parseToDate(activitiesDate), 1))
         )
+
     return (
         <>
             <DashboardHeader>
@@ -57,7 +54,7 @@ const Dashboard = () => {
                 {activitiesByDate &&
                     activitiesByDate.map(activity => (
                         <ThemeProvider
-                            key={activity.activityInfo.timestamp}
+                            key={activity.id}
                             theme={themeFinder(activity.type)}
                         >
                             <ActivityCard content={activity} />

@@ -10,8 +10,8 @@ const NappyInfo = ({ content }) => {
                 {iconTheme(content.type, { width: '24px', height: '24px' })}
             </ActivityIcon>
             <ActivityContent>
-                <p>{content.activityInfo.nappy}</p>
-                <p>{content.activityInfo.notes}</p>
+                <p>{content.nappy}</p>
+                <p>{content.notes}</p>
             </ActivityContent>
         </StyledActivityCard>
     )
