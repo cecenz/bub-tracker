@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
-import Card from '../Card'
-import { iconTheme } from '../common'
+import Card from './Card'
+import { iconTheme } from '../common/themes'
 
 const NappyInfo = ({ content }) => {
     return (

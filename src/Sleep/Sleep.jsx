@@ -3,9 +3,9 @@ import { useDispatch } from 'react-redux'
 import { Formik, Form } from 'formik'
 import styled from 'styled-components'
 import { createActivity } from '../store/actions'
-import { displayTime, selectTime, formatToDatabaseDate } from '../common'
+import { displayTime, selectTime, formatToDatabaseDate } from '../common/common'
 
-import Card from '../Card'
+import Card from '../components/Card'
 
 const convertDuration = totalTime => {
     const totalTimeDecimal = totalTime.toFixed(2).split('.')
@@ -50,7 +50,7 @@ const Sleep = ({ history }) => {
                     dispatch(
                         createActivity({
                             date: formatToDatabaseDate(new Date()),
-                            theme: 'sleep',
+                            type: 'sleep',
                             time: displayTime(new Date()),
                             startTime: SecondsToHours(values.startTime),
                             endTime: SecondsToHours(values.endTime),

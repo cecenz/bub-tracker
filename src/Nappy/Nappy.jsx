@@ -5,10 +5,10 @@ import { Formik, Form, Field } from 'formik'
 import styled from 'styled-components'
 import { createActivity } from '../store/actions'
 
-import { displayTime, formatToDatabaseDate } from '../common'
+import { displayTime, formatToDatabaseDate } from '../common/common'
 
-import { RadioButtonGroup, RadioButton } from '../Fields'
-import Card from '../Card'
+import { RadioButtonGroup, RadioButton } from '../components/Fields'
+import Card from '../components/Card'
 
 const Nappy = ({ history }) => {
     const dispatch = useDispatch()
