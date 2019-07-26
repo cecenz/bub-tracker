@@ -1,8 +1,7 @@
-import React, { Fragment, useState } from 'react'
-import { Route } from 'react-router-dom'
+import React, { useState } from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
-
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { nappy, activity, sleep, media, feed } from './themes'
 import { ReactComponent as PlusIcon } from './svg/plus.svg'
 import { ReactComponent as HouseIcon } from './svg/house.svg'
@@ -19,7 +18,7 @@ function App({ history }) {
 
     const onClick = () => setShowCards(!isShowCards)
     return (
-        <Fragment>
+        <Router>
             <Header>
                 <HeaderIcons>
                     <PlusIcon
@@ -122,7 +121,7 @@ function App({ history }) {
                     </ThemeProvider>
                 )}
             />
-        </Fragment>
+        </Router>
     )
 }
 

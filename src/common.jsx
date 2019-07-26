@@ -13,7 +13,7 @@ export const timestamp = () => format(new Date(), 'HHmmss')
 export const formatToDatabaseDate = date =>
     date ? format(date, 'YYYY-MM-DD') : format(new Date(), 'YYYY-MM-DD')
 
-export const displayDate = date =>
+export const displayTime = date =>
     date ? format(date, 'h:m a') : format(new Date(), 'h:m a')
 
 export const parseToDate = dateToString => {
