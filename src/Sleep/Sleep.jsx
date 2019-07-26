@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { Formik, Form } from 'formik'
 import axios from 'axios'
 import styled from 'styled-components'
-import { timestamp, selectTime, formatToDatabaseDate } from '../common'
+import { timestamp, selectTime, formatToDatabaseDate } from '../common/common'
 
-import Card from '../Card'
+import Card from '../components/Card'
 
 const convertDuration = totalTime => {
     const totalTimeDecimal = totalTime.toFixed(2).split('.')

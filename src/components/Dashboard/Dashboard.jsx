@@ -5,13 +5,13 @@ import subDays from 'date-fns/sub_days'
 import addDays from 'date-fns/add_days'
 import { firestoreConnect } from 'react-redux-firebase'
 
-import { formatToDatabaseDate, parseToDate } from './common'
-import { themeFinder } from './themes'
+import { formatToDatabaseDate, parseToDate } from '../../common/common'
+import { themeFinder } from '../../common/themes'
 
-import { ReactComponent as NextIcon } from './svg/next.svg'
-import { ReactComponent as BackIcon } from './svg/back.svg'
+import { ReactComponent as NextIcon } from '../../svg/next.svg'
+import { ReactComponent as BackIcon } from '../../svg/back.svg'
 
-import ActivityCard from './ActivityCard/ActivityCard'
+import ActivityCard from '../ActivityCard'
 
 import './Dashboard.css'
 

@@ -2,7 +2,7 @@ import React from 'react'
 import styled, { ThemeProvider } from 'styled-components'
 import { Link } from 'react-router-dom'
 
-import { iconTheme } from './common'
+import { iconTheme } from '../common/themes'
 
 const Card = ({ theme, title, linkTo, setShowCards }) => {
     const iconStyles = {

@@ -1,13 +1,6 @@
 import React from 'react'
 import format from 'date-fns/format'
 
-import { ReactComponent as Activity } from './svg/activity.svg'
-import { ReactComponent as SleepIcon } from './svg/sleep.svg'
-import { ReactComponent as FeedIcon } from './svg/feedBottle.svg'
-import { ReactComponent as Media } from './svg/camera.svg'
-import { ReactComponent as NappyIcon } from './svg/nappy.svg'
-import { ReactComponent as BabyIcon } from './svg/baby-girl.svg'
-
 export const timestamp = () => format(new Date(), 'HHmmss')
 
 export const formatToDatabaseDate = date =>
@@ -19,40 +12,6 @@ export const displayTime = date =>
 export const parseToDate = dateToString => {
     const dateArray = dateToString.split('-')
     return new Date(dateArray[0], dateArray[1] - 1, dateArray[2]).toDateString()
-}
-
-export const sortByKey = (array, key) => {
-    return array.sort((a, b) => {
-        const x = a[key]
-        const y = b[key]
-        return x > y ? -1 : x < y ? 1 : 0
-    })
-}
-
-export const iconTheme = (theme, styles) => {
-    let icon
-    switch (theme.toLowerCase()) {
-        case 'nappy':
-            icon = <NappyIcon style={styles} />
-            break
-        case 'sleep':
-            icon = <SleepIcon style={styles} />
-            break
-        case 'feed':
-            icon = <FeedIcon style={styles} />
-            break
-        case 'activity':
-            icon = <Activity style={styles} />
-            break
-        case 'media':
-            icon = <Media style={styles} />
-            break
-        default:
-            icon = <BabyIcon style={{ width: '16px', height: '16px' }} />
-            break
-    }
-
-    return icon
 }
 
 export const selectTime = (
