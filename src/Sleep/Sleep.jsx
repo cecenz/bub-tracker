@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { Formik, Form } from 'formik'
-import axios from 'axios'
 import styled from 'styled-components'
-import { timestamp, selectTime, formatToDatabaseDate } from '../common'
+import { createActivity } from '../store/actions'
+import { displayTime, selectTime, formatToDatabaseDate } from '../common'
 
 import Card from '../Card'
 
@@ -26,6 +27,8 @@ function SecondsToHours(timeInSeconds) {
 }
 
 const Sleep = ({ history }) => {
+    const dispatch = useDispatch()
+
     const [totalTime, setTotalTime] = useState(false)
     const handleTimeChange = (startTime, endTime) => {
         const chosenStartTime = parseInt(startTime)
@@ -44,21 +47,17 @@ const Sleep = ({ history }) => {
             <Formik
                 initialValues={{}}
                 onSubmit={values => {
-                    const result = {
-                        theme: 'sleep',
-                        startTime: SecondsToHours(values.startTime),
-                        endTime: SecondsToHours(values.endTime),
-                        totalTime,
-                        sleepNotes: values.sleepNotes,
-                    }
-                    axios
-                        .patch(
-                            `https://bub-tracker-758cd.firebaseio.com/activities/${formatToDatabaseDate()}/${timestamp()}/sleep.json`,
-                            result
-                        )
-                        .then(res => {
-                            history.replace('/')
+                    dispatch(
+                        createActivity({
+                            date: formatToDatabaseDate(new Date()),
+                            theme: 'sleep',
+                            time: displayTime(new Date()),
+                            startTime: SecondsToHours(values.startTime),
+                            endTime: SecondsToHours(values.endTime),
+                            totalTime,
+                            notes: values.sleepNotes ? values.sleepNotes : '',
                         })
+                    )
                 }}
             >
                 {({ values, handleChange, isSubmitting }) => (

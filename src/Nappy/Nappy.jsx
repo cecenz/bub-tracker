@@ -3,7 +3,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { Formik, Form, Field } from 'formik'
 import styled from 'styled-components'
-import { createActivity } from './store/actions'
+import { createActivity } from '../store/actions'
 
 import { displayTime, formatToDatabaseDate } from '../common'
 
