@@ -78,6 +78,7 @@ const ContentContainer = styled.div`
 `
 
 const StyledHeader = styled.div`
+    margin-bottom: 2rem;
     padding: 1rem;
     background-color: #fff;
     box-shadow: 0 2px 12px 0 #eee;

@@ -2,9 +2,16 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { Formik, Form } from 'formik'
 import styled from 'styled-components'
-import { createActivity } from '../store/actions'
-import { displayTime, selectTime, formatToDatabaseDate } from '../common/common'
+import { withRouter } from 'react-router'
 
+import { createActivity } from '../store/actions'
+import {
+    displayTime,
+    selectTime,
+    formatToDatabaseDate,
+    SecondsToHours,
+} from '../common/common'
+import { TextArea } from '../components/Fields'
 import Card from '../components/Card'
 
 const convertDuration = totalTime => {
@@ -13,17 +20,6 @@ const convertDuration = totalTime => {
         totalTimeDecimal[1] * 0.6
     ).toString()} minutes`
     return formattedTime
-}
-function SecondsToHours(timeInSeconds) {
-    const pad = (num, size) => {
-        return `000${num}`.slice(size * -1)
-    }
-    const time = parseFloat(timeInSeconds).toFixed(3)
-    const hours = Math.floor(time / 60 / 60)
-    const hoursSuffix = hours >= 12 ? 'pm' : 'am'
-    const minutes = Math.floor(time / 60) % 60
-
-    return `${pad(hours, 2)}:${pad(minutes, 2)} ${hoursSuffix}`
 }
 
 const Sleep = ({ history }) => {
@@ -42,24 +38,24 @@ const Sleep = ({ history }) => {
         setTotalTime(convertedDuration)
     }
 
+    const handleSubmit = values => {
+        return dispatch(
+            createActivity({
+                date: formatToDatabaseDate(new Date()),
+                type: 'sleep',
+                time: displayTime(new Date()),
+                startTime: SecondsToHours(values.startTime),
+                endTime: SecondsToHours(values.endTime),
+                totalTime,
+                notes: values.sleepNotes ? values.sleepNotes : '',
+            }),
+            history.replace('/')
+        )
+    }
+
     return (
         <Card>
-            <Formik
-                initialValues={{}}
-                onSubmit={values => {
-                    dispatch(
-                        createActivity({
-                            date: formatToDatabaseDate(new Date()),
-                            type: 'sleep',
-                            time: displayTime(new Date()),
-                            startTime: SecondsToHours(values.startTime),
-                            endTime: SecondsToHours(values.endTime),
-                            totalTime,
-                            notes: values.sleepNotes ? values.sleepNotes : '',
-                        })
-                    )
-                }}
-            >
+            <Formik initialValues={{}} onSubmit={handleSubmit}>
                 {({ values, handleChange, isSubmitting }) => (
                     <Form>
                         <div
@@ -117,11 +113,9 @@ const Sleep = ({ history }) => {
                             <div />
                         </div>
                         {totalTime && <p>Total sleep: {totalTime}</p>}
-                        <label htmlFor="sleepNotes">Notes</label>
                         <TextArea
+                            label="Notes"
                             id="sleepNotes"
-                            name="sleepNotes"
-                            value={values.sleepNotes}
                             onChange={handleChange}
                             values={values.sleepNotes}
                         />
@@ -134,14 +128,6 @@ const Sleep = ({ history }) => {
         </Card>
     )
 }
-
-const TextArea = styled.textarea`
-    width: 100%;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    min-height: 100px;
-    margin-bottom: 1rem;
-`
 
 const Button = styled.button`
     padding: 0.75rem;
@@ -176,4 +162,4 @@ const Select = styled.select`
     border-radius: 4px;
 `
 
-export default Sleep
+export default withRouter(Sleep)

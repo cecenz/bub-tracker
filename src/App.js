@@ -1,15 +1,19 @@
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
-
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-import { nappy, activity, sleep, media, feed } from './common/themes'
+// import { createBrowserHistory } from 'history'
 
 import './globalStyles.css'
 
+import { nappy, activity, sleep, media, feed } from './common/themes'
 import Header from './components/Header'
 import Dashboard from './components/Dashboard/Dashboard'
 import Nappy from './Nappy/Nappy'
 import Sleep from './Sleep/Sleep'
+import Activity from './Activity/Activity'
+import Measurement from './Activity/Measurement'
+import Bath from './Activity/Bath'
+import Appointment from './Activity/Appointment'
 
 const App = () => {
     return (
@@ -17,7 +21,6 @@ const App = () => {
             <Header />
             <Route exact path="/" component={Dashboard} />
             <Route
-                exact
                 path="/nappy"
                 component={() => (
                     <ThemeProvider theme={nappy}>
@@ -36,8 +39,8 @@ const App = () => {
             <Route
                 path="/activity"
                 component={() => (
-                    <ThemeProvider theme={nappy}>
-                        <Nappy />
+                    <ThemeProvider theme={activity}>
+                        <Activity />
                     </ThemeProvider>
                 )}
             />
@@ -57,6 +60,9 @@ const App = () => {
                     </ThemeProvider>
                 )}
             />
+            <Route path="/appointment" exact component={Appointment} />
+            <Route path="/bath" exact component={Bath} />
+            <Route path="/measurement" exact component={Measurement} />
         </Router>
     )
 }

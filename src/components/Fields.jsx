@@ -1,6 +1,23 @@
 import React, { Fragment } from 'react'
 import styled from 'styled-components'
 
+// TextArea
+export const TextArea = ({ id, value, values, label, onChange }) => {
+    return (
+        <>
+            <label htmlFor={id} style={{ fontSize: '22px' }}>
+                {label}
+            </label>
+            <StyledTextArea
+                id={id}
+                name={id}
+                onChange={onChange}
+                values={values}
+            />
+        </>
+    )
+}
+
 // Radio group
 export const RadioButtonGroup = ({ label, children }) => {
     return (
@@ -42,11 +59,12 @@ const Fieldset = styled.fieldset`
     border: none;
     margin: 0;
     padding: 0;
-    margin-bottom: 1.2rem;
+    margin-bottom: 2.25rem;
 `
 
 const Legend = styled.legend`
     margin-bottom: 1rem;
+    font-size: 22px;
 `
 
 const StyledRadioButtonLabel = styled.label`
@@ -55,7 +73,7 @@ const StyledRadioButtonLabel = styled.label`
     border-radius: 4px;
     display: block;
     text-align: center;
-    padding: 1rem;
+    padding: 0.75rem;
     cursor: pointer;
     transition: all 0.2s ease-in;
     :hover {
@@ -74,7 +92,19 @@ const StyledRadioButtonInput = styled.input`
 `
 
 const StyledRadioButtonGroup = styled.div`
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-column-gap: 1rem;
+    display: flex;
+    justify-content: space-between;
+`
+
+const StyledTextArea = styled.textarea`
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    min-height: 100px;
+    margin-bottom: 2.25rem;
+    margin-top: 0.5rem;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    padding: 0.5rem;
+    display: block;
+    width: calc(100% - 1rem);
 `

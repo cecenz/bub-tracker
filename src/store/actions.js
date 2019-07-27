@@ -3,7 +3,7 @@ export const createActivity = activity => {
     return (dispatch, getState, { getFirestore }) => {
         const firestore = getFirestore()
         firestore
-            .collection('nappy')
+            .collection('activities')
             .add({
                 ...activity,
             })

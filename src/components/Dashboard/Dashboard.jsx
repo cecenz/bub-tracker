@@ -16,7 +16,7 @@ import ActivityCard from '../ActivityCard'
 import './Dashboard.css'
 
 const Dashboard = () => {
-    const activities = useSelector(state => state.firestore.ordered.nappy)
+    const activities = useSelector(state => state.firestore.ordered.activities)
     const [activitiesDate, setActivitiesDate] = useState(formatToDatabaseDate)
     const [activitiesByDate, setActivitiesByDate] = useState()
 
@@ -72,4 +72,4 @@ const DashboardHeader = styled.div`
     align-items: center;
 `
 
-export default firestoreConnect(['nappy'])(Dashboard)
+export default firestoreConnect(['activities'])(Dashboard)

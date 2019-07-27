@@ -34,6 +34,20 @@ const SleepInfo = ({ content }) => {
     )
 }
 
+const ActivityInfo = ({ content }) => {
+    return (
+        <StyledActivityCard>
+            <ActivityIcon>
+                {iconTheme(content.type, { width: '24px', height: '24px' })}
+            </ActivityIcon>
+            <ActivityContent>
+                <p>{content.time}</p>
+                <p>{content.notes}</p>
+            </ActivityContent>
+        </StyledActivityCard>
+    )
+}
+
 const ActivityCard = ({ content }) => {
     let component
     switch (content.type) {
@@ -42,6 +56,9 @@ const ActivityCard = ({ content }) => {
             break
         case 'nappy':
             component = <NappyInfo content={content} />
+            break
+        case 'activity':
+            component = <ActivityInfo content={content} />
             break
         default:
             break

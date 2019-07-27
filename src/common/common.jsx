@@ -3,6 +3,18 @@ import format from 'date-fns/format'
 
 export const timestamp = () => format(new Date(), 'HHmmss')
 
+export function SecondsToHours(timeInSeconds) {
+    const pad = (num, size) => {
+        return `000${num}`.slice(size * -1)
+    }
+    const time = parseFloat(timeInSeconds).toFixed(3)
+    const hours = Math.floor(time / 60 / 60)
+    const hoursSuffix = hours >= 12 ? 'pm' : 'am'
+    const minutes = Math.floor(time / 60) % 60
+
+    return `${pad(hours, 2)}:${pad(minutes, 2)} ${hoursSuffix}`
+}
+
 export const formatToDatabaseDate = date =>
     date ? format(date, 'YYYY-MM-DD') : format(new Date(), 'YYYY-MM-DD')
 
