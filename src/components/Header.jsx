@@ -6,7 +6,7 @@ import ActivityAdder from './ActivityAdder'
 import { ReactComponent as PlusIcon } from '../svg/plus.svg'
 import { ReactComponent as HouseIcon } from '../svg/house.svg'
 
-const Header = () => {
+const Header = ({ history }) => {
     const [isShowCards, setShowCards] = useState(false)
 
     return (
@@ -21,7 +21,7 @@ const Header = () => {
                     }}
                 />
                 <HouseIcon
-                    // onClick={() => history.replace('/bub-tracker/')}
+                    onClick={() => history.replace('/bub-tracker/')}
                     style={{
                         width: '16px',
                         height: '16px',

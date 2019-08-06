@@ -13,6 +13,7 @@ import {
 } from '../common/common'
 import { RadioButtonGroup, RadioButton, TextArea } from '../components/Fields'
 import Card from '../components/Card'
+import Header from '../components/Header'
 
 const Nappy = ({ history }) => {
     const dispatch = useDispatch()
@@ -32,6 +33,7 @@ const Nappy = ({ history }) => {
     }
     return (
         <div>
+            <Header history={history} />
             <h3 style={{ textAlign: 'center' }}>Nappy Change</h3>
             <Card>
                 <Formik onSubmit={handleSubmit}>

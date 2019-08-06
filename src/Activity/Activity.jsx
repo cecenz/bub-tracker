@@ -9,6 +9,7 @@ import { formatToDatabaseDate, SecondsToHours } from '../common/common'
 import { TextArea } from '../components/Fields'
 import { activity } from '../common/themes'
 import Card from '../components/Card'
+import Header from '../components/Header'
 
 const Note = ({ history }) => {
     const dispatch = useDispatch()
@@ -27,25 +28,28 @@ const Note = ({ history }) => {
     }
     return (
         <ThemeProvider theme={activity}>
-            <Card>
-                <Formik onSubmit={handleSubmit}>
-                    {({ values, handleChange, isSubmitting }) => (
-                        <Form>
-                            <TextArea
-                                id="notes"
-                                label="Note"
-                                value={values.notes}
-                                onChange={handleChange}
-                                values={values.notes}
-                            />
+            <>
+                <Header history={history} />
+                <Card>
+                    <Formik onSubmit={handleSubmit}>
+                        {({ values, handleChange, isSubmitting }) => (
+                            <Form>
+                                <TextArea
+                                    id="notes"
+                                    label="Note"
+                                    value={values.notes}
+                                    onChange={handleChange}
+                                    values={values.notes}
+                                />
 
-                            <Button type="submit" disabled={isSubmitting}>
-                                Submit Note
-                            </Button>
-                        </Form>
-                    )}
-                </Formik>
-            </Card>
+                                <Button type="submit" disabled={isSubmitting}>
+                                    Submit Note
+                                </Button>
+                            </Form>
+                        )}
+                    </Formik>
+                </Card>
+            </>
         </ThemeProvider>
     )
 }

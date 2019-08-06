@@ -13,6 +13,7 @@ import {
 } from '../common/common'
 import { TextArea } from '../components/Fields'
 import Card from '../components/Card'
+import Header from '../components/Header'
 
 const convertDuration = totalTime => {
     const totalTimeDecimal = totalTime.toFixed(2).split('.')
@@ -54,77 +55,80 @@ const Sleep = ({ history }) => {
     }
 
     return (
-        <Card>
-            <Formik initialValues={{}} onSubmit={handleSubmit}>
-                {({ values, handleChange, isSubmitting }) => (
-                    <Form>
-                        <div
-                            style={{
-                                display: 'grid',
-                                gridTemplateColumns: '1fr 1fr',
-                                alignItems: 'center',
-                                columnGap: '1rem',
-                            }}
-                        >
-                            <div>
-                                <label
-                                    htmlFor="start"
-                                    style={{
-                                        display: 'block',
-                                        marginBottom: '0.25rem',
-                                    }}
-                                >
-                                    Start
-                                </label>
-                                <Select
-                                    id="startTime"
-                                    name="startTime"
-                                    onChange={handleChange}
-                                    value={values.startTime}
-                                >
-                                    {selectTime}
-                                </Select>
+        <>
+            <Header history={history} />
+            <Card>
+                <Formik initialValues={{}} onSubmit={handleSubmit}>
+                    {({ values, handleChange, isSubmitting }) => (
+                        <Form>
+                            <div
+                                style={{
+                                    display: 'grid',
+                                    gridTemplateColumns: '1fr 1fr',
+                                    alignItems: 'center',
+                                    columnGap: '1rem',
+                                }}
+                            >
+                                <div>
+                                    <label
+                                        htmlFor="start"
+                                        style={{
+                                            display: 'block',
+                                            marginBottom: '0.25rem',
+                                        }}
+                                    >
+                                        Start
+                                    </label>
+                                    <Select
+                                        id="startTime"
+                                        name="startTime"
+                                        onChange={handleChange}
+                                        value={values.startTime}
+                                    >
+                                        {selectTime}
+                                    </Select>
+                                </div>
+                                <div>
+                                    <label
+                                        htmlFor="finish"
+                                        style={{
+                                            display: 'block',
+                                            marginBottom: '0.25rem',
+                                        }}
+                                    >
+                                        Finish
+                                    </label>
+                                    <Select
+                                        id="endTime"
+                                        name="endTime"
+                                        onChange={handleChange}
+                                        value={values.endTime}
+                                        onBlur={() =>
+                                            handleTimeChange(
+                                                values.startTime,
+                                                values.endTime
+                                            )
+                                        }
+                                    >
+                                        {selectTime}
+                                    </Select>
+                                </div>
                             </div>
-                            <div>
-                                <label
-                                    htmlFor="finish"
-                                    style={{
-                                        display: 'block',
-                                        marginBottom: '0.25rem',
-                                    }}
-                                >
-                                    Finish
-                                </label>
-                                <Select
-                                    id="endTime"
-                                    name="endTime"
-                                    onChange={handleChange}
-                                    value={values.endTime}
-                                    onBlur={() =>
-                                        handleTimeChange(
-                                            values.startTime,
-                                            values.endTime
-                                        )
-                                    }
-                                >
-                                    {selectTime}
-                                </Select>
-                            </div>
-                        </div>
-                        {totalTime && <p>Total sleep: {totalTime}</p>}
-                        <TextArea
-                            label="Notes"
-                            id="sleepNotes"
-                            onChange={handleChange}
-                            values={values.sleepNotes}
-                        />
-                        <Button type="submit" disabled={isSubmitting}>
-                            Complete Activity
-                        </Button>
-                    </Form>
-                )}
-            </Formik>
-        </Card>
+                            {totalTime && <p>Total sleep: {totalTime}</p>}
+                            <TextArea
+                                label="Notes"
+                                id="sleepNotes"
+                                onChange={handleChange}
+                                values={values.sleepNotes}
+                            />
+                            <Button type="submit" disabled={isSubmitting}>
+                                Complete Activity
+                            </Button>
+                        </Form>
+                    )}
+                </Formik>
+            </Card>
+        </>
     )
 }
 

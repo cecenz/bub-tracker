@@ -12,10 +12,11 @@ import { ReactComponent as NextIcon } from '../../svg/next.svg'
 import { ReactComponent as BackIcon } from '../../svg/back.svg'
 
 import ActivityCard from '../ActivityCard'
+import Header from '../Header'
 
 import './Dashboard.css'
 
-const Dashboard = () => {
+const Dashboard = ({ history }) => {
     const activities = useSelector(state => state.firestore.ordered.activities)
     const [activitiesDate, setActivitiesDate] = useState(formatToDatabaseDate)
     const [activitiesByDate, setActivitiesByDate] = useState()
@@ -39,6 +40,7 @@ const Dashboard = () => {
 
     return (
         <>
+            <Header history={history} />
             <DashboardHeader>
                 <BackIcon
                     onClick={handlePreviousDate}

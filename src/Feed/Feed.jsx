@@ -13,6 +13,7 @@ import {
 } from '../common/common'
 import { TextArea, RadioButtonGroup, RadioButton } from '../components/Fields'
 import Card from '../components/Card'
+import Header from '../components/Header'
 
 const Feed = ({ history }) => {
     const dispatch = useDispatch()
@@ -34,107 +35,110 @@ const Feed = ({ history }) => {
     }
 
     return (
-        <Card>
-            <Formik initialValues={{}} onSubmit={handleSubmit}>
-                {({ values, handleChange, isSubmitting }) => (
-                    <Form>
-                        <div
-                            style={{
-                                display: 'grid',
-                                gridTemplateColumns: '1fr 1fr',
-                                alignItems: 'center',
-                                columnGap: '1rem',
-                            }}
-                        >
-                            <div>
-                                <label
-                                    htmlFor="start"
-                                    style={{
-                                        display: 'block',
-                                        marginBottom: '0.25rem',
-                                    }}
-                                >
-                                    Start
-                                </label>
-                                <Select
-                                    id="startTime"
-                                    name="startTime"
-                                    onChange={handleChange}
-                                    value={values.startTime}
-                                >
-                                    {selectTime}
-                                </Select>
+        <>
+            <Header history={history} />
+            <Card>
+                <Formik initialValues={{}} onSubmit={handleSubmit}>
+                    {({ values, handleChange, isSubmitting }) => (
+                        <Form>
+                            <div
+                                style={{
+                                    display: 'grid',
+                                    gridTemplateColumns: '1fr 1fr',
+                                    alignItems: 'center',
+                                    columnGap: '1rem',
+                                }}
+                            >
+                                <div>
+                                    <label
+                                        htmlFor="start"
+                                        style={{
+                                            display: 'block',
+                                            marginBottom: '0.25rem',
+                                        }}
+                                    >
+                                        Start
+                                    </label>
+                                    <Select
+                                        id="startTime"
+                                        name="startTime"
+                                        onChange={handleChange}
+                                        value={values.startTime}
+                                    >
+                                        {selectTime}
+                                    </Select>
+                                </div>
+                                <div>
+                                    <label
+                                        htmlFor="finish"
+                                        style={{
+                                            display: 'block',
+                                            marginBottom: '0.25rem',
+                                        }}
+                                    >
+                                        Finish
+                                    </label>
+                                    <Select
+                                        id="endTime"
+                                        name="endTime"
+                                        onChange={handleChange}
+                                        value={values.endTime}
+                                    >
+                                        {selectTime}
+                                    </Select>
+                                </div>
+                                <div />
                             </div>
-                            <div>
-                                <label
-                                    htmlFor="finish"
-                                    style={{
-                                        display: 'block',
-                                        marginBottom: '0.25rem',
-                                    }}
-                                >
-                                    Finish
-                                </label>
-                                <Select
-                                    id="endTime"
-                                    name="endTime"
-                                    onChange={handleChange}
-                                    value={values.endTime}
-                                >
-                                    {selectTime}
-                                </Select>
-                            </div>
-                            <div />
-                        </div>
-                        <RadioButtonGroup
-                            id="side"
-                            label="Feed side"
-                            value={values.radioGroup}
-                        >
-                            <Field
-                                component={RadioButton}
-                                name="side"
-                                id="left"
-                                label="Left"
+                            <RadioButtonGroup
+                                id="side"
+                                label="Feed side"
+                                value={values.radioGroup}
+                            >
+                                <Field
+                                    component={RadioButton}
+                                    name="side"
+                                    id="left"
+                                    label="Left"
+                                />
+                                <Field
+                                    component={RadioButton}
+                                    name="side"
+                                    id="right"
+                                    label="Right"
+                                />
+                            </RadioButtonGroup>
+                            <RadioButtonGroup
+                                id="hold"
+                                label="Hold style"
+                                value={values.radioGroup}
+                            >
+                                <Field
+                                    component={RadioButton}
+                                    name="hold"
+                                    id="rugby"
+                                    label="Rugby"
+                                />
+                                <Field
+                                    component={RadioButton}
+                                    name="hold"
+                                    id="standard"
+                                    label="Standard"
+                                />
+                            </RadioButtonGroup>
+                            <TextArea
+                                label="Notes"
+                                id="feedNotes"
+                                onChange={handleChange}
+                                values={values.feedNotes}
                             />
-                            <Field
-                                component={RadioButton}
-                                name="side"
-                                id="right"
-                                label="Right"
-                            />
-                        </RadioButtonGroup>
-                        <RadioButtonGroup
-                            id="hold"
-                            label="Hold style"
-                            value={values.radioGroup}
-                        >
-                            <Field
-                                component={RadioButton}
-                                name="hold"
-                                id="rugby"
-                                label="Rugby"
-                            />
-                            <Field
-                                component={RadioButton}
-                                name="hold"
-                                id="standard"
-                                label="Standard"
-                            />
-                        </RadioButtonGroup>
-                        <TextArea
-                            label="Notes"
-                            id="feedNotes"
-                            onChange={handleChange}
-                            values={values.feedNotes}
-                        />
-                        <Button type="submit" disabled={isSubmitting}>
-                            Complete Activity
-                        </Button>
-                    </Form>
-                )}
-            </Formik>
-        </Card>
+                            <Button type="submit" disabled={isSubmitting}>
+                                Complete Activity
+                            </Button>
+                        </Form>
+                    )}
+                </Formik>
+            </Card>
+        </>
     )
 }
 

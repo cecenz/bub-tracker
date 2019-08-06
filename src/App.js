@@ -5,7 +5,6 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 import './globalStyles.css'
 
 import { nappy, activity, sleep, feed } from './common/themes'
-import Header from './components/Header'
 import Dashboard from './components/Dashboard/Dashboard'
 import Nappy from './Nappy/Nappy'
 import Feed from './Feed/Feed'
@@ -18,7 +17,6 @@ import Appointment from './Activity/Appointment'
 const App = () => {
     return (
         <Router>
-            <Header />
             <Route exact path="/bub-tracker/" component={Dashboard} />
             <Route
                 path="/bub-tracker/nappy"
