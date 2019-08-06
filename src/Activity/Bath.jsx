@@ -26,7 +26,7 @@ const Bath = ({ history }) => {
                     time: SecondsToHours(values.time),
                 })
             ),
-            history.replace('/')
+            history.replace('/bub-tracker/')
         )
     }
     return (

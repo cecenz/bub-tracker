@@ -71,6 +71,8 @@ export const themeFinder = activityType => {
             return sleep
         case 'activity':
             return activity
+        case 'feed':
+            return feed
         default:
             return null
     }

@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useDispatch } from 'react-redux'
-import { Formik, Form } from 'formik'
+import { Formik, Field, Form } from 'formik'
 import styled from 'styled-components'
 import { withRouter } from 'react-router'
 
@@ -11,43 +11,23 @@ import {
     formatToDatabaseDate,
     SecondsToHours,
 } from '../common/common'
-import { TextArea } from '../components/Fields'
+import { TextArea, RadioButtonGroup, RadioButton } from '../components/Fields'
 import Card from '../components/Card'
 
-const convertDuration = totalTime => {
-    const totalTimeDecimal = totalTime.toFixed(2).split('.')
-    const formattedTime = `${totalTimeDecimal[0]} hours, ${(
-        totalTimeDecimal[1] * 0.6
-    ).toString()} minutes`
-    return formattedTime
-}
-
-const Sleep = ({ history }) => {
+const Feed = ({ history }) => {
     const dispatch = useDispatch()
-
-    const [totalTime, setTotalTime] = useState(false)
-    const handleTimeChange = (startTime, endTime) => {
-        const chosenStartTime = parseInt(startTime)
-        const chosenEndtartTime = parseInt(endTime)
-        const updatedTotalTime =
-            chosenStartTime > chosenEndtartTime
-                ? (86400 - chosenStartTime + chosenEndtartTime) / 3600
-                : (chosenEndtartTime - chosenStartTime) / 3600
-
-        const convertedDuration = convertDuration(updatedTotalTime)
-        setTotalTime(convertedDuration)
-    }
 
     const handleSubmit = values => {
         return dispatch(
             createActivity({
                 date: formatToDatabaseDate(new Date()),
-                type: 'sleep',
+                type: 'feed',
                 time: displayTime(new Date()),
                 startTime: SecondsToHours(values.startTime),
                 endTime: SecondsToHours(values.endTime),
-                totalTime,
-                notes: values.sleepNotes ? values.sleepNotes : '',
+                hold: values.hold,
+                side: values.side,
+                notes: values.feedNotes ? values.feedNotes : '',
             }),
             history.replace('/bub-tracker/')
         )
@@ -100,23 +80,53 @@ const Sleep = ({ history }) => {
                                     name="endTime"
                                     onChange={handleChange}
                                     value={values.endTime}
-                                    onBlur={() =>
-                                        handleTimeChange(
-                                            values.startTime,
-                                            values.endTime
-                                        )
-                                    }
                                 >
                                     {selectTime}
                                 </Select>
                             </div>
+                            <div />
                         </div>
-                        {totalTime && <p>Total sleep: {totalTime}</p>}
+                        <RadioButtonGroup
+                            id="side"
+                            label="Feed side"
+                            value={values.radioGroup}
+                        >
+                            <Field
+                                component={RadioButton}
+                                name="side"
+                                id="left"
+                                label="Left"
+                            />
+                            <Field
+                                component={RadioButton}
+                                name="side"
+                                id="right"
+                                label="Right"
+                            />
+                        </RadioButtonGroup>
+                        <RadioButtonGroup
+                            id="hold"
+                            label="Hold style"
+                            value={values.radioGroup}
+                        >
+                            <Field
+                                component={RadioButton}
+                                name="hold"
+                                id="rugby"
+                                label="Rugby"
+                            />
+                            <Field
+                                component={RadioButton}
+                                name="hold"
+                                id="standard"
+                                label="Standard"
+                            />
+                        </RadioButtonGroup>
                         <TextArea
                             label="Notes"
-                            id="sleepNotes"
+                            id="feedNotes"
                             onChange={handleChange}
-                            values={values.sleepNotes}
+                            values={values.feedNotes}
                         />
                         <Button type="submit" disabled={isSubmitting}>
                             Complete Activity
@@ -161,4 +171,4 @@ const Select = styled.select`
     border-radius: 4px;
 `
 
-export default withRouter(Sleep)
+export default withRouter(Feed)

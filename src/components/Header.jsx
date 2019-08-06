@@ -21,7 +21,7 @@ const Header = () => {
                     }}
                 />
                 <HouseIcon
-                    // onClick={() => history.replace('/')}
+                    // onClick={() => history.replace('/bub-tracker/')}
                     style={{
                         width: '16px',
                         height: '16px',

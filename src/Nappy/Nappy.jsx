@@ -6,14 +6,17 @@ import styled from 'styled-components'
 import { withRouter } from 'react-router'
 
 import { createActivity } from '../store/actions'
-import { displayTime, formatToDatabaseDate } from '../common/common'
+import {
+    formatToDatabaseDate,
+    selectTime,
+    SecondsToHours,
+} from '../common/common'
 import { RadioButtonGroup, RadioButton, TextArea } from '../components/Fields'
 import Card from '../components/Card'
 
 const Nappy = ({ history }) => {
     const dispatch = useDispatch()
     const handleSubmit = values => {
-        console.log('values', values)
         return (
             dispatch(
                 createActivity({
@@ -21,10 +24,10 @@ const Nappy = ({ history }) => {
                     nappy: values.nappy,
                     notes: values.nappyNotes ? values.nappyNotes : '',
                     type: 'nappy',
-                    time: displayTime(new Date()),
+                    time: SecondsToHours(values.time),
                 })
             ),
-            history.push('/')
+            history.replace('/bub-tracker/')
         )
     }
     return (
@@ -34,6 +37,14 @@ const Nappy = ({ history }) => {
                 <Formik onSubmit={handleSubmit}>
                     {({ values, handleChange, isSubmitting }) => (
                         <Form>
+                            <Select
+                                id="time"
+                                name="time"
+                                onChange={handleChange}
+                                value={values.time}
+                            >
+                                {selectTime}
+                            </Select>
                             <RadioButtonGroup
                                 id="nappy"
                                 label="Outcome"
@@ -95,6 +106,23 @@ const Button = styled.button`
         box-shadow: 0px 2px 20px 0px #ccc;
         transition: all 0.2s ease-in;
     }
+`
+const Select = styled.select`
+    border: 1px solid #ddd;
+    width: 100%;
+    margin-bottom: 1rem;
+    box-shadow: 0px 2px 12px #ddd;
+    box-sizing: border-box;
+    display: inline-block;
+    max-width: 100%;
+    height: 2.5rem;
+    font-size: 1rem;
+    line-height: 1.25;
+    vertical-align: middle;
+    background-color: #fff;
+    -webkit-appearance: none;
+    padding: 9px;
+    border-radius: 4px;
 `
 
 export default withRouter(Nappy)

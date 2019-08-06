@@ -4,10 +4,11 @@ import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import './globalStyles.css'
 
-import { nappy, activity, sleep } from './common/themes'
+import { nappy, activity, sleep, feed } from './common/themes'
 import Header from './components/Header'
 import Dashboard from './components/Dashboard/Dashboard'
 import Nappy from './Nappy/Nappy'
+import Feed from './Feed/Feed'
 import Sleep from './Sleep/Sleep'
 import Activity from './Activity/Activity'
 import Measurement from './Activity/Measurement'
@@ -30,8 +31,8 @@ const App = () => {
             <Route
                 path="/bub-tracker/feed"
                 component={() => (
-                    <ThemeProvider theme={nappy}>
-                        <Nappy />
+                    <ThemeProvider theme={feed}>
+                        <Feed />
                     </ThemeProvider>
                 )}
             />

@@ -1,6 +1,9 @@
 import React from 'react'
 import format from 'date-fns/format'
 
+export const capitalise = string =>
+    string.charAt(0).toUpperCase() + string.slice(1)
+
 export const timestamp = () => format(new Date(), 'HHmmss')
 
 export const sortByKey = array => {
