@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/bub-tracker/static/css/main.a61406e2.chunk.css",
+    "main.js": "/bub-tracker/static/js/main.ff8728a0.chunk.js",
+    "main.js.map": "/bub-tracker/static/js/main.ff8728a0.chunk.js.map",
+    "runtime~main.js": "/bub-tracker/static/js/runtime~main.def85148.js",
+    "runtime~main.js.map": "/bub-tracker/static/js/runtime~main.def85148.js.map",
+    "static/js/2.b11d8ed5.chunk.js": "/bub-tracker/static/js/2.b11d8ed5.chunk.js",
+    "static/js/2.b11d8ed5.chunk.js.map": "/bub-tracker/static/js/2.b11d8ed5.chunk.js.map",
+    "index.html": "/bub-tracker/index.html",
+    "precache-manifest.a8567f367faa87d4aec23df3652fc680.js": "/bub-tracker/precache-manifest.a8567f367faa87d4aec23df3652fc680.js",
+    "service-worker.js": "/bub-tracker/service-worker.js",
+    "static/css/main.a61406e2.chunk.css.map": "/bub-tracker/static/css/main.a61406e2.chunk.css.map",
+    "static/media/activity.17c43d0a.svg": "/bub-tracker/static/media/activity.17c43d0a.svg",
+    "static/media/baby-girl.1179e9f3.svg": "/bub-tracker/static/media/baby-girl.1179e9f3.svg",
+    "static/media/back.1b539efa.svg": "/bub-tracker/static/media/back.1b539efa.svg",
+    "static/media/camera.0a1c638b.svg": "/bub-tracker/static/media/camera.0a1c638b.svg",
+    "static/media/feedBottle.7d081d0e.svg": "/bub-tracker/static/media/feedBottle.7d081d0e.svg",
+    "static/media/house.11c277a1.svg": "/bub-tracker/static/media/house.11c277a1.svg",
+    "static/media/nappy.d9a62ee7.svg": "/bub-tracker/static/media/nappy.d9a62ee7.svg",
+    "static/media/next.f6f8f14d.svg": "/bub-tracker/static/media/next.f6f8f14d.svg",
+    "static/media/plus.e7c1a8b9.svg": "/bub-tracker/static/media/plus.e7c1a8b9.svg",
+    "static/media/sleep.1ecd95ab.svg": "/bub-tracker/static/media/sleep.1ecd95ab.svg"
+  }
+}
