@@ -5,7 +5,11 @@ import subDays from 'date-fns/sub_days'
 import addDays from 'date-fns/add_days'
 import { firestoreConnect } from 'react-redux-firebase'
 
-import { formatToDatabaseDate, parseToDate } from '../../common/common'
+import {
+    formatToDatabaseDate,
+    parseToDate,
+    sortByKey,
+} from '../../common/common'
 import { themeFinder } from '../../common/themes'
 
 import { ReactComponent as NextIcon } from '../../svg/next.svg'
@@ -36,6 +40,9 @@ const Dashboard = () => {
         setActivitiesDate(
             formatToDatabaseDate(addDays(parseToDate(activitiesDate), 1))
         )
+
+    activitiesByDate &&
+        sortByKey(activitiesByDate).map(item => console.log(item))
 
     return (
         <>

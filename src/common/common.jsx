@@ -3,6 +3,15 @@ import format from 'date-fns/format'
 
 export const timestamp = () => format(new Date(), 'HHmmss')
 
+export const sortByKey = array => {
+    return array.sort((a, b) => {
+        console.log(
+            new Date(`${a.date} ${a.time}`) - new Date(`${b.date} ${b.time}`)
+        )
+        return new Date(`${a.date} ${a.time}`) - new Date(`${b.date} ${b.time}`)
+    })
+}
+
 export function SecondsToHours(timeInSeconds) {
     const pad = (num, size) => {
         return `000${num}`.slice(size * -1)

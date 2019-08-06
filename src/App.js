@@ -1,11 +1,10 @@
 import React from 'react'
 import { ThemeProvider } from 'styled-components'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
-// import { createBrowserHistory } from 'history'
 
 import './globalStyles.css'
 
-import { nappy, activity, sleep, media, feed } from './common/themes'
+import { nappy, activity, sleep } from './common/themes'
 import Header from './components/Header'
 import Dashboard from './components/Dashboard/Dashboard'
 import Nappy from './Nappy/Nappy'
@@ -19,9 +18,9 @@ const App = () => {
     return (
         <Router>
             <Header />
-            <Route exact path="/" component={Dashboard} />
+            <Route exact path="/bub-tracker/" component={Dashboard} />
             <Route
-                path="/nappy"
+                path="/bub-tracker/nappy"
                 component={() => (
                     <ThemeProvider theme={nappy}>
                         <Nappy />
@@ -29,7 +28,7 @@ const App = () => {
                 )}
             />
             <Route
-                path="/feed"
+                path="/bub-tracker/feed"
                 component={() => (
                     <ThemeProvider theme={nappy}>
                         <Nappy />
@@ -37,7 +36,7 @@ const App = () => {
                 )}
             />
             <Route
-                path="/activity"
+                path="/bub-tracker/activity"
                 component={() => (
                     <ThemeProvider theme={activity}>
                         <Activity />
@@ -45,7 +44,7 @@ const App = () => {
                 )}
             />
             <Route
-                path="/sleep"
+                path="/bub-tracker/sleep"
                 component={() => (
                     <ThemeProvider theme={sleep}>
                         <Sleep />
@@ -53,7 +52,7 @@ const App = () => {
                 )}
             />
             <Route
-                path="/media"
+                path="/bub-tracker/media"
                 component={() => (
                     <ThemeProvider theme={nappy}>
                         <Nappy />
